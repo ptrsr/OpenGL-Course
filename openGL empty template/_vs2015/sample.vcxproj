@@ -20,6 +20,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp" />
+    <ClCompile Include="..\src\ShaderUtil.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\src\ShaderUtil.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}</ProjectGuid>
