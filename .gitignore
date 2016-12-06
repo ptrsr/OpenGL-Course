@@ -3,7 +3,7 @@
 
 # User-specific files
 *.suo
-*.user
+#*.user
 *.userosscache
 *.sln.docstates
 
@@ -251,3 +251,4 @@ paket-files/
 .idea/
 *.sln.iml
 *.tlog
+openGL empty template/_vs2015/
