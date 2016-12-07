@@ -25,6 +25,10 @@
   <ItemGroup>
     <ClInclude Include="..\src\ShaderUtil.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\assets\fragmentshader.fs" />
+    <None Include="..\assets\vertexshader.vs" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{9BF1737F-5BBF-413D-A25B-8DA45BE5CF13}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>

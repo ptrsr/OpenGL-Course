@@ -7,4 +7,17 @@
   <ItemGroup>
     <ClInclude Include="..\src\ShaderUtil.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{d8d94587-26d8-4878-8e70-db09f2519412}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\assets\fragmentshader.fs">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="..\assets\vertexshader.vs">
+      <Filter>Assets</Filter>
+    </None>
+  </ItemGroup>
 </Project>
