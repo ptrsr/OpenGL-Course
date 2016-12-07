@@ -48,7 +48,6 @@ void MGEDemo::_initializeScene()
 
     //add camera first (it will be updated last)
     Camera* camera = new Camera ("camera", glm::vec3(0,6,7));
-    camera->rotate(glm::radians(-40.0f), glm::vec3(1,0,0));
     _world->add(camera);
     _world->setMainCamera(camera);
 
@@ -88,7 +87,10 @@ void MGEDemo::_initializeScene()
     monkey->setBehaviour (new RotatingBehaviour());
     _world->add(monkey);
 
-    camera->setBehaviour(new LookAt (teapot));
+	camera->setParent(teapot);
+	camera->rotate(glm::radians(180.0f), glm::vec3(0, 1, 0));
+	camera->setLocalPosition(glm::vec3(0, 2, -4));
+    //camera->setBehaviour(new LookAt (teapot));
 }
 
 void MGEDemo::_render() {
