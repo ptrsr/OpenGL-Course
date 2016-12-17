@@ -252,3 +252,5 @@ paket-files/
 *.sln.iml
 *.tlog
 openGL empty template/_vs2015/
+Assignment 1/_vs2015/
+MGE/_vs2015/
