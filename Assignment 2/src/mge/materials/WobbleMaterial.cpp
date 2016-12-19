@@ -6,10 +6,30 @@
 #include "mge/core/GameObject.hpp"
 #include "mge/config.hpp"
 
+
 ShaderProgram* WobbleMaterial::_shader = NULL;
 
-WobbleMaterial::WobbleMaterial(Texture * pDiffuseTexture) :_diffuseTexture(pDiffuseTexture) {
+WobbleMaterial::WobbleMaterial(Texture * pDiffuseTexture, Mesh * pMesh) :_diffuseTexture(pDiffuseTexture) 
+{
+	timer = new sf::Clock();
 	_lazyInitializeShader();
+
+	//wobble
+	int vertexCount = pMesh->VertexCount();
+	GLint * phase = new GLint[vertexCount - 1];
+
+	for (int i = 0; i < vertexCount; i++)
+		phase[i] = i;
+
+	GLuint phaseBufferId;
+	glGenBuffers(1, &phaseBufferId);
+	glBindBuffer(GL_ARRAY_BUFFER, phaseBufferId);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(phase) * vertexCount, phase, GL_STATIC_DRAW);
+
+	GLint phaseIndex = _shader->getAttribLocation("phase");
+
+	glEnableVertexAttribArray(phaseIndex);
+	glVertexAttribIPointer(phaseIndex, 1, GL_INT, GL_FALSE, 0);
 }
 
 WobbleMaterial::~WobbleMaterial() {}
@@ -32,20 +52,8 @@ void WobbleMaterial::render(Mesh* pMesh, const glm::mat4& pModelMatrix, const gl
 
 	_shader->use();
 
-	//wobble
-	int vertexCount = pMesh->VertexCount();
-	GLint * phase = new GLint[vertexCount - 1];
-
-	for (int i = 0; i < vertexCount; i++) {
-		phase[i] = i;
-	}
-
-	GLuint phaseBufferId;
-	glGenBuffers(1, &phaseBufferId);
-	glBindBuffer(GL_ARRAY_BUFFER, phaseBufferId);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(phase) * vertexCount, phase, GL_STATIC_DRAW);
-
-	glUniform1i(_shader->getUniformLocation("phases"), vertexCount * 1);
+	glUniform1i(_shader->getUniformLocation("phases"), pMesh->VertexCount());
+	glUniform1f(_shader->getUniformLocation("clock"), timer->getElapsedTime().asSeconds());
 
 	//setup texture slot 0
 	glActiveTexture(GL_TEXTURE0);
@@ -56,16 +64,7 @@ void WobbleMaterial::render(Mesh* pMesh, const glm::mat4& pModelMatrix, const gl
 	glUniformMatrix4fv(_shader->getUniformLocation("projectionMatrix"), 1, GL_FALSE, glm::value_ptr(pProjectionMatrix));
 	glUniformMatrix4fv(_shader->getUniformLocation("viewMatrix"), 1, GL_FALSE, glm::value_ptr(pViewMatrix));
 	glUniformMatrix4fv(_shader->getUniformLocation("modelMatrix"), 1, GL_FALSE, glm::value_ptr(pModelMatrix));
-
-
-	GLint phaseIndex = _shader->getAttribLocation("phase");
-
-	glEnableVertexAttribArray(phaseIndex);
-	glVertexAttribIPointer(phaseIndex, 1, GL_INT, GL_FALSE, 0);
 	
-
-
-
 	//now inform mesh of where to stream its data
 	pMesh->streamToOpenGL(
 		_shader->getAttribLocation("vertex"),

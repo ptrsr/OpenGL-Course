@@ -47,7 +47,7 @@ void MGEDemo::initialize() {
 void MGEDemo::_initializeScene()
 {
     _renderer->setClearColor(0,0,0);
-
+	
     //add camera first (it will be updated last)
     Camera* camera = new Camera ("camera", glm::vec3(0,6,7));
     _world->add(camera);
@@ -58,16 +58,15 @@ void MGEDemo::_initializeScene()
     //load a bunch of meshes we will be using throughout this demo
     //each mesh only has to be loaded once, but can be used multiple times:
     //F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
-    //Mesh* planeMeshDefault = Mesh::load (config::MGE_MODEL_PATH+"plane.obj");
+    Mesh* planeMeshDefault = Mesh::load (config::MGE_MODEL_PATH+"plane.obj");
     ////Mesh* cubeMeshF = Mesh::load (config::MGE_MODEL_PATH+"cube_flat.obj");
     //Mesh* suzannaMeshF = Mesh::load (config::MGE_MODEL_PATH+"suzanna_flat.obj");
-    Mesh* bulldozerMesh = Mesh::load (config::MGE_MODEL_PATH+"sphere_smooth.obj");
+
 
     //MATERIALS
 
     //AbstractMaterial* colorMaterial = new ColorMaterial (glm::vec3(0.2f,0,0.2f));
-    //AbstractMaterial* textureMaterial = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"land.jpg"));
-    AbstractMaterial* textureMaterial2 = new WobbleMaterial (Texture::load (config::MGE_TEXTURE_PATH+"bricks.jpg"));
+    AbstractMaterial* textureMaterial = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"land.jpg"));
 
     //SCENE SETUP
 
@@ -77,11 +76,13 @@ void MGEDemo::_initializeScene()
     //plane->setMaterial(textureMaterial);
     //_world->add(plane);
 
-    GameObject* bulldozer = new GameObject ("bulldozer", glm::vec3(-3,1,0));
-    bulldozer->setMesh (bulldozerMesh);
-    bulldozer->setMaterial(textureMaterial2);
-    bulldozer->setBehaviour (new KeysBehaviour());
-    _world->add(bulldozer);
+    GameObject* ball = new GameObject ("ball", glm::vec3(-3,1,0));
+	Mesh* ballMesh = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
+    ball->setMesh (ballMesh);
+	AbstractMaterial* ballMaterial = new WobbleMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ball.jpg"), ballMesh);
+    ball->setMaterial(ballMaterial);
+    ball->setBehaviour (new KeysBehaviour());
+    _world->add(ball);
 
     //GameObject* monkey = new GameObject ("monkey", glm::vec3(3,1,0));
     //monkey->setMesh (suzannaMeshF);
@@ -89,7 +90,7 @@ void MGEDemo::_initializeScene()
     //monkey->setBehaviour (new RotatingBehaviour());
     //_world->add(monkey);
     
-	camera->setBehaviour(new OrbitBehaviour(_window, bulldozer));
+	camera->setBehaviour(new OrbitBehaviour(_window, ball));
 }
 
 void MGEDemo::_render() {

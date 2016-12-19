@@ -8,7 +8,7 @@ OrbitBehaviour::OrbitBehaviour(sf::Window * pWindow, GameObject * pTarget)
 {
 	_window = pWindow;
 	_target = pTarget;
-	_distance = 3;
+	_distance = 6;
 }
 
 void OrbitBehaviour::update(float pStep)

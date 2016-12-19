@@ -4,11 +4,12 @@
 #include "mge/core/ShaderProgram.hpp"
 #include "mge/core/Texture.hpp"
 #include "mge/materials/AbstractMaterial.hpp"
+#include <SFML\System.hpp>
 
 class WobbleMaterial : public AbstractMaterial
 {
 public:
-	WobbleMaterial(Texture* pDiffuseTexture);
+	WobbleMaterial(Texture* pDiffuseTexture, Mesh* pMesh);
 	virtual ~WobbleMaterial();
 
 	virtual void render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
@@ -17,6 +18,8 @@ public:
 
 protected:
 private:
+	sf::Clock * timer;
+
 	static ShaderProgram* _shader;
 	static void _lazyInitializeShader();
 
