@@ -40,8 +40,8 @@ void LitMaterial::_lazyInitializeShader()
 	if (!_shader) 
 	{
 		_shader = new ShaderProgram();
-		_shader->addShader(GL_VERTEX_SHADER, config::MGE_SHADER_PATH + "lit.vs");
-		_shader->addShader(GL_FRAGMENT_SHADER, config::MGE_SHADER_PATH + "lit.fs");
+		_shader->addShader(GL_VERTEX_SHADER, config::MGE_SHADER_PATH + "litFragment.vs");
+		_shader->addShader(GL_FRAGMENT_SHADER, config::MGE_SHADER_PATH + "litFragment.fs");
 		_shader->finalize();
 
 		//vertex uniforms

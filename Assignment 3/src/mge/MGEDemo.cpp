@@ -77,7 +77,7 @@ void MGEDemo::_initializeScene()
     //_world->add(plane);
 
     GameObject* ball = new GameObject ("ball", glm::vec3(0, 0, -3));
-	Mesh* ballMesh = Mesh::load(config::MGE_MODEL_PATH + "sphere_80_triangles_flat.obj");
+	Mesh* ballMesh = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
     ball->setMesh (ballMesh);
 	AbstractMaterial* ballMaterial = new LitMaterial(_world->GetLights(), glm::vec3(1,0,0));
     ball->setMaterial(ballMaterial);

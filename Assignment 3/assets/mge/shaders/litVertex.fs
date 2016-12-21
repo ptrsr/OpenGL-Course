@@ -15,5 +15,4 @@ void main( void )
     vec3 specularTerm = vec3(0,0,0);
 
 	fColor = vec4 (ambientTerm + diffuseTerm, 1);
-	//fColor = vec4 (vec3(1.0f,0.0f,0.0f), 1);
 }
