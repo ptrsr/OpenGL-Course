@@ -142,11 +142,11 @@ Mesh* Mesh::load(string pFileName, float pScale)
 				{
 					int count = sscanf(line.c_str(), "%10s %d %d %d", cmd, &vertexIndex[0], &vertexIndex[1], &vertexIndex[2]);
 
-					glm::vec3 normal = glm::normalize(glm::cross(vertices[vertexIndex[0]] - vertices[vertexIndex[1]], vertices[vertexIndex[2]] - vertices[vertexIndex[1]]));
-					normalIndex = glm::ivec3(normals.size());
+					glm::vec3 normal = glm::normalize(glm::cross(vertices[vertexIndex[1] - 1] - vertices[vertexIndex[0] - 1], vertices[vertexIndex[2] - 1] - vertices[vertexIndex[0] - 1]));
+					normalIndex = glm::ivec3(normals.size() + 1);
 					normals.push_back(normal);
 
-					std::cout << std::endl << "normal: " << normal.x << " " << normal.y << " " << normal.z;
+					//std::cout << std::endl << "normal: " << normal.x << " " << normal.y << " " << normal.z;
 
 					uvIndex = glm::ivec3(uvs.size());
 					uvs.push_back(glm::vec2());

@@ -69,7 +69,7 @@ void MGEDemo::_initializeScene()
 	///BALL
     GameObject* ball = new GameObject ("ball", glm::vec3(0, 0, 0));
 
-	Mesh* ballMesh = Mesh::load(config::MGE_MODEL_PATH + "cubee.obj", 0.03f);
+	Mesh* ballMesh = Mesh::load(config::MGE_MODEL_PATH + "lucas.obj", 0.001f);
     ball->setMesh(ballMesh);
 
 	//AbstractMaterial* ballMaterial = new WobbleMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ball.jpg"));
@@ -80,8 +80,8 @@ void MGEDemo::_initializeScene()
     _world->add(ball);
 
 	///CAMERA
-	GameObject* empty = new GameObject("empty", glm::vec3(0, 0, 0));
-	camera->setBehaviour(new OrbitBehaviour(_window, empty, 5));
+	GameObject* empty = new GameObject("empty", glm::vec3(0, 1, 0));
+	camera->setBehaviour(new OrbitBehaviour(_window, empty, 3));
 }
 
 void MGEDemo::_render() {
