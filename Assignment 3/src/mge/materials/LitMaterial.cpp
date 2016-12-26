@@ -80,5 +80,7 @@ void LitMaterial::render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::
 	glUniform3fv(_uAmbientColor, 1, glm::value_ptr(_ambientColor));
 	glUniform3fv(_uDiffuseColor, 1, glm::value_ptr(_diffuseColor));
 	glUniform3fv(_uDiLightColor, 1, glm::value_ptr(_diLightColor));
+
+	pMesh->drawDebugInfo(pModelMatrix, pViewMatrix, pProjectionMatrix);
 }
 

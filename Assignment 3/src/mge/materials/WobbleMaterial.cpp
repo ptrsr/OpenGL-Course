@@ -9,27 +9,10 @@
 
 ShaderProgram* WobbleMaterial::_shader = NULL;
 
-WobbleMaterial::WobbleMaterial(Texture * pDiffuseTexture, Mesh * pMesh) :_diffuseTexture(pDiffuseTexture) 
+WobbleMaterial::WobbleMaterial(Texture * pDiffuseTexture) :_diffuseTexture(pDiffuseTexture) 
 {
 	timer = new sf::Clock();
 	_lazyInitializeShader();
-
-	//wobble
-	int vertexCount = pMesh->VertexCount();
-	GLint * phase = new GLint[vertexCount - 1];
-
-	for (int i = 0; i < vertexCount; i++)
-		phase[i] = i;
-
-	GLuint phaseBufferId;
-	glGenBuffers(1, &phaseBufferId);
-	glBindBuffer(GL_ARRAY_BUFFER, phaseBufferId);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(phase) * vertexCount, phase, GL_STATIC_DRAW);
-
-	GLint phaseIndex = _shader->getAttribLocation("phase");
-
-	glEnableVertexAttribArray(phaseIndex);
-	glVertexAttribIPointer(phaseIndex, 1, GL_INT, GL_FALSE, 0);
 }
 
 WobbleMaterial::~WobbleMaterial() {}
@@ -52,26 +35,19 @@ void WobbleMaterial::render(Mesh* pMesh, const glm::mat4& pModelMatrix, const gl
 
 	_shader->use();
 
-	glUniform1i(_shader->getUniformLocation("phases"), pMesh->VertexCount());
-	glUniform1f(_shader->getUniformLocation("clock"), timer->getElapsedTime().asSeconds());
-
 	//setup texture slot 0
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, _diffuseTexture->getId());
 	glUniform1i(_shader->getUniformLocation("textureDiffuse"), 0);
 
-	//pass in all MVP matrices separately
-	glUniformMatrix4fv(_shader->getUniformLocation("projectionMatrix"), 1, GL_FALSE, glm::value_ptr(pProjectionMatrix));
-	glUniformMatrix4fv(_shader->getUniformLocation("viewMatrix"), 1, GL_FALSE, glm::value_ptr(pViewMatrix));
-	glUniformMatrix4fv(_shader->getUniformLocation("modelMatrix"), 1, GL_FALSE, glm::value_ptr(pModelMatrix));
+	glm::mat4 mvpMatrix = pProjectionMatrix * pViewMatrix * pModelMatrix;
+	glUniformMatrix4fv(_shader->getUniformLocation("mvpMatrix"), 1, GL_FALSE, glm::value_ptr(mvpMatrix));
+	glUniform1f(_shader->getUniformLocation("clock"), timer->getElapsedTime().asSeconds());
 	
 	//now inform mesh of where to stream its data
 	pMesh->streamToOpenGL(
 		_shader->getAttribLocation("vertex"),
-		_shader->getAttribLocation("normal"),
+		-1,
 		_shader->getAttribLocation("uv")
 	);
-
-
-	//glDisableVertexAttribArray(phaseIndex);
 }

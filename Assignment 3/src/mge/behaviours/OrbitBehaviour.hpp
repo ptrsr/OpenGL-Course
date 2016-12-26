@@ -7,10 +7,10 @@
 class OrbitBehaviour : public AbstractBehaviour
 {
 	public:
-		glm::vec2 _pitchRange = glm::vec2(-90.0f, 90.0f);
+		sf::Vector2f _pitchRange = sf::Vector2f(-90.0f, 90.0f);
 		float _yawRotSpeed = 1.0f;
 
-		OrbitBehaviour(sf::Window * pWindow, GameObject * pTarget);
+		OrbitBehaviour(sf::Window * pWindow, GameObject * pTarget, float pDistance);
 
 		virtual void update(float pStep);
 
@@ -18,7 +18,8 @@ class OrbitBehaviour : public AbstractBehaviour
 		GameObject * _target;
 		sf::Window * _window;
 
-		glm::vec2 _mousePos;
+		sf::Vector2i _lastMousePos = sf::Vector2i();
+		sf::Vector2f _currentMousePos = sf::Vector2f();
 		float _distance;
 
 		glm::mat4 Orbit(GameObject * pTarget);

@@ -54,44 +54,34 @@ void MGEDemo::_initializeScene()
     _world->add(camera);
     _world->setMainCamera(camera);
 
-    //MESHES
+    ///PLANE
+ //   GameObject* plane = new GameObject ("plane", glm::vec3(0,0,0));
+	//
+	//Mesh* planeMesh = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
+	//plane->setMesh(planeMesh);
+	//plane->scale(glm::vec3(5,5,5));
 
-    //load a bunch of meshes we will be using throughout this demo
-    //each mesh only has to be loaded once, but can be used multiple times:
-    //F is flat shaded, S is smooth shaded (normals aligned or not), check the models folder!
-    //Mesh* planeMeshDefault = Mesh::load (config::MGE_MODEL_PATH+"plane.obj");
-    ////Mesh* cubeMeshF = Mesh::load (config::MGE_MODEL_PATH+"cube_flat.obj");
-    //Mesh* suzannaMeshF = Mesh::load (config::MGE_MODEL_PATH+"suzanna_flat.obj");
+	//AbstractMaterial* planeMaterial = new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
+ //   plane->setMaterial(planeMaterial);
 
-    //MATERIALS
+ //   _world->add(plane);
 
-    //AbstractMaterial* colorMaterial = new ColorMaterial (glm::vec3(0.2f,0,0.2f));
-    //AbstractMaterial* textureMaterial = new TextureMaterial (Texture::load (config::MGE_TEXTURE_PATH+"land.jpg"));
+	///BALL
+    GameObject* ball = new GameObject ("ball", glm::vec3(0, 0, 0));
 
-    //SCENE SETUP
+	Mesh* ballMesh = Mesh::load(config::MGE_MODEL_PATH + "cubee.obj", 0.03f);
+    ball->setMesh(ballMesh);
 
-    //GameObject* plane = new GameObject ("plane", glm::vec3(0,0,0));
-    //plane->scale(glm::vec3(5,5,5));
-    //plane->setMesh(planeMeshDefault);
-    //plane->setMaterial(textureMaterial);
-    //_world->add(plane);
-
-    GameObject* ball = new GameObject ("ball", glm::vec3(0, 0, -3));
-	Mesh* ballMesh = Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj");
-    ball->setMesh (ballMesh);
-	AbstractMaterial* ballMaterial = new LitMaterial(_world->GetLights(), glm::vec3(1,0,0));
+	//AbstractMaterial* ballMaterial = new WobbleMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ball.jpg"));
+	AbstractMaterial* ballMaterial = new LitMaterial(_world->GetLights(), glm::vec3(1,1,1));
     ball->setMaterial(ballMaterial);
-    ball->setBehaviour (new RotatingBehaviour());
+
+    //ball->setBehaviour (new RotatingBehaviour());
     _world->add(ball);
 
-    //GameObject* monkey = new GameObject ("monkey", glm::vec3(3,1,0));
-    //monkey->setMesh (suzannaMeshF);
-    //monkey->setMaterial(colorMaterial);
-    //monkey->setBehaviour (new RotatingBehaviour());
-    //_world->add(monkey);
-    
-	GameObject* empty = new GameObject("empty", glm::vec3(0, 0, -3));
-	camera->setBehaviour(new OrbitBehaviour(_window, empty));
+	///CAMERA
+	GameObject* empty = new GameObject("empty", glm::vec3(0, 0, 0));
+	camera->setBehaviour(new OrbitBehaviour(_window, empty, 5));
 }
 
 void MGEDemo::_render() {

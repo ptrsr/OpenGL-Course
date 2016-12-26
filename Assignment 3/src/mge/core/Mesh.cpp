@@ -67,7 +67,7 @@ Mesh::~Mesh()
  *
  * Note that loading this mesh isn't cached like we do with texturing, this is an exercise left for the students.
  */
-Mesh* Mesh::load(string pFileName)
+Mesh* Mesh::load(string pFileName, float pScale)
 {
     cout << "Loading " << pFileName << "...";
 
@@ -108,7 +108,7 @@ Mesh* Mesh::load(string pFileName)
 			if ( strcmp ( cmd, "v" ) == 0 ) {
 				glm::vec3 vertex;
 				sscanf(line.c_str(), "%10s %f %f %f ", cmd, &vertex.x, &vertex.y, &vertex.z );
-				vertices.push_back( vertex );
+				vertices.push_back( vertex * pScale );
 
             //or are we reading a normal line? straightforward copy into local normal vector
 			} else if ( strcmp ( cmd, "vn" ) == 0 ) {
@@ -136,46 +136,60 @@ Mesh* Mesh::load(string pFileName)
 				glm::ivec3 normalIndex;
 				glm::ivec3 uvIndex;
 			    int count = sscanf(line.c_str(), "%10s %d/%d/%d %d/%d/%d %d/%d/%d", cmd, &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2] );
+				//std::cout << count << std::endl;
+
+				if (count != 10)
+				{
+					int count = sscanf(line.c_str(), "%10s %d %d %d", cmd, &vertexIndex[0], &vertexIndex[1], &vertexIndex[2]);
+
+					glm::vec3 normal = glm::normalize(glm::cross(vertices[vertexIndex[0]] - vertices[vertexIndex[1]], vertices[vertexIndex[2]] - vertices[vertexIndex[1]]));
+					normalIndex = glm::ivec3(normals.size());
+					normals.push_back(normal);
+
+					std::cout << std::endl << "normal: " << normal.x << " " << normal.y << " " << normal.z;
+
+					uvIndex = glm::ivec3(uvs.size());
+					uvs.push_back(glm::vec2());
+				}
 
                 //Have we read exactly 10 elements?
-				if ( count == 10 ) {
 
-                    //process 3 triplets, one for each vertex (which is first element of the triplet)
-					for ( int i = 0; i < 3; ++i ) {
-					    //create key out of the triplet and check if we already encountered this before
-						FaceIndexTriplet triplet (vertexIndex[i], uvIndex[i], normalIndex[i]);
-						map<FaceIndexTriplet, unsigned int>::iterator found = mappedTriplets.find(triplet);
+                //process 3 triplets, one for each vertex (which is first element of the triplet)
+				for ( int i = 0; i < 3; ++i ) {
+					//create key out of the triplet and check if we already encountered this before
+					FaceIndexTriplet triplet (vertexIndex[i], uvIndex[i], normalIndex[i]);
+					map<FaceIndexTriplet, unsigned int>::iterator found = mappedTriplets.find(triplet);
 
-						//if iterator points at the end, we haven't found it
-						if (found == mappedTriplets.end())
-                        {
-                            //so create a new index value, and map our triplet to it
-							unsigned int index = mappedTriplets.size();
-							mappedTriplets[ triplet ] = index;
+					//if iterator points at the end, we haven't found it
+					if (found == mappedTriplets.end())
+                    {
+                        //so create a new index value, and map our triplet to it
+						unsigned int index = mappedTriplets.size();
+						mappedTriplets[ triplet ] = index;
 
-							//now record this index
-							mesh->_indices.push_back( index );
-							//and store the corresponding vertex/normal/uv values into our own buffers
-							//note the -1 is required since all values in the f triplets in the .obj file
-							//are 1 based, but our vectors are 0 based
-							mesh->_vertices.push_back( vertices[ vertexIndex[i]-1 ] );
-							mesh->_normals.push_back( normals[ normalIndex[i]-1 ] );
-							mesh->_uvs.push_back( uvs[ uvIndex[i]-1 ] );
-						}
-						else
-                        {
-                            //if the key was already present, get the index value for it
-							unsigned int index = found->second;
-                            //and update our index buffer with it
-							mesh->_indices.push_back( index );
-						}
+						//now record this index
+						mesh->_indices.push_back( index );
+						//and store the corresponding vertex/normal/uv values into our own buffers
+						//note the -1 is required since all values in the f triplets in the .obj file
+						//are 1 based, but our vectors are 0 based
+						mesh->_vertices.push_back( vertices[ vertexIndex[i]-1 ] );
+						mesh->_normals.push_back( normals[ normalIndex[i]-1 ] );
+						mesh->_uvs.push_back( uvs[ uvIndex[i]-1 ] );
 					}
-				} else {
-				    //If we read a different amount, something is wrong
-					cout << "Error reading obj, needing v,vn,vt" << endl;
-					delete mesh;
-					return NULL;
+					else
+                    {
+                        //if the key was already present, get the index value for it
+						unsigned int index = found->second;
+                        //and update our index buffer with it
+						mesh->_indices.push_back( index );
+					}
 				}
+				// else {
+				//    //If we read a different amount, something is wrong
+				//	cout << "Error reading obj, needing v,vn,vt" << endl;
+				//	delete mesh;
+				//	return NULL;
+				//}
 			}
 
 		}
