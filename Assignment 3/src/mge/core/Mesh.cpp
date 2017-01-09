@@ -136,20 +136,17 @@ Mesh* Mesh::load(string pFileName, float pScale)
 				glm::ivec3 normalIndex;
 				glm::ivec3 uvIndex;
 			    int count = sscanf(line.c_str(), "%10s %d/%d/%d %d/%d/%d %d/%d/%d", cmd, &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2] );
-				//std::cout << count << std::endl;
 
 				if (count != 10)
 				{
 					int count = sscanf(line.c_str(), "%10s %d %d %d", cmd, &vertexIndex[0], &vertexIndex[1], &vertexIndex[2]);
 
 					glm::vec3 normal = glm::normalize(glm::cross(vertices[vertexIndex[1] - 1] - vertices[vertexIndex[0] - 1], vertices[vertexIndex[2] - 1] - vertices[vertexIndex[0] - 1]));
-					normalIndex = glm::ivec3(normals.size() + 1);
 					normals.push_back(normal);
+					normalIndex = glm::ivec3(normals.size());
 
-					//std::cout << std::endl << "normal: " << normal.x << " " << normal.y << " " << normal.z;
-
-					uvIndex = glm::ivec3(uvs.size());
 					uvs.push_back(glm::vec2());
+					uvIndex = glm::ivec3(uvs.size());
 				}
 
                 //Have we read exactly 10 elements?

@@ -22,6 +22,7 @@ using namespace std;
 #include "mge/behaviours/KeysBehaviour.hpp"
 #include "mge/behaviours/LookAt.hpp"
 #include "mge/behaviours/OrbitBehaviour.hpp"
+#include "mge/behaviours/DirectionalLight.hpp"
 
 #include "mge/util/DebugHud.hpp"
 
@@ -66,18 +67,25 @@ void MGEDemo::_initializeScene()
 
  //   _world->add(plane);
 
-	///BALL
-    GameObject* ball = new GameObject ("ball", glm::vec3(0, 0, 0));
+	///LIGHTS
+	GameObject* lightSource = new GameObject("lightSource");
+	lightSource->setBehaviour(new DirectionalLight(glm::vec3(-1, -1, -1), glm::vec3(0, 0, 1), glm::vec3(0, 0, 0)));
+	_world->add(lightSource);
 
-	Mesh* ballMesh = Mesh::load(config::MGE_MODEL_PATH + "lucas.obj", 0.001f);
-    ball->setMesh(ballMesh);
+	GameObject* lightSource2 = new GameObject("lightSource2");
+	lightSource2->setBehaviour(new DirectionalLight(glm::vec3(1, 1, 1), glm::vec3(1,0,0), glm::vec3(0,0,0)));
+	_world->add(lightSource2);
 
-	//AbstractMaterial* ballMaterial = new WobbleMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ball.jpg"));
-	AbstractMaterial* ballMaterial = new LitMaterial(_world->GetLights(), glm::vec3(1,1,1));
-    ball->setMaterial(ballMaterial);
+	///LUCAS
+    GameObject* lucas = new GameObject ("Lucas", glm::vec3(0, 0, 0));
 
-    //ball->setBehaviour (new RotatingBehaviour());
-    _world->add(ball);
+	Mesh* ballMesh = Mesh::load(config::MGE_MODEL_PATH + "lucas.obj", 0.0013f);
+    lucas->setMesh(ballMesh);
+
+	AbstractMaterial* lucasMaterial = new LitMaterial(_world->GetLights());
+    lucas->setMaterial(lucasMaterial);
+
+    _world->add(lucas);
 
 	///CAMERA
 	GameObject* empty = new GameObject("empty", glm::vec3(0, 1, 0));

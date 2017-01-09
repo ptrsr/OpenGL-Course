@@ -2,9 +2,19 @@
 
 using namespace std;
 
+World* World::world;
+
 World::World():GameObject("root"), _mainCamera(0)
 {
-	_lights = new std::vector<DirectionalLight*>();
+	_lights = new std::vector<AbstractLight*>();
+}
+
+World* World::get()
+{
+	if (world == nullptr)
+		world = new World();
+
+	return world;
 }
 
 void World::add(GameObject* pChild)
@@ -12,9 +22,9 @@ void World::add(GameObject* pChild)
 	pChild->setParent(this);
 
 	AbstractBehaviour* behaviour = pChild->getBehaviour();
-	
-	if (behaviour != nullptr && typeid(*behaviour) == typeid(DirectionalLight))
-		_lights->push_back((DirectionalLight*)behaviour);
+
+	if (behaviour != nullptr && dynamic_cast<AbstractLight*>(behaviour))
+		_lights->push_back((AbstractLight*)behaviour);
 }
 
 void World::setMainCamera (Camera* pCamera) {
@@ -22,9 +32,9 @@ void World::setMainCamera (Camera* pCamera) {
 }
 
 Camera* World::getMainCamera () {
-    return _mainCamera;
+    return world->_mainCamera;
 }
 
-std::vector<DirectionalLight*>* World::GetLights() {
+std::vector<AbstractLight*>* World::GetLights() {
 	return _lights;
 }

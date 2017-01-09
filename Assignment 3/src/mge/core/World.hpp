@@ -10,21 +10,26 @@ class Camera;
 class World : public GameObject
 {
 	public:
-        World();
-
 		void setMainCamera (Camera* pCamera);
 
-		Camera* getMainCamera();
-		std::vector<DirectionalLight*>* GetLights();
+		static World* get();
+
+		static Camera* getMainCamera();
+
+		std::vector<AbstractLight*>* GetLights();
 
 		void add(GameObject* pChild);
 
 	private:
-	    Camera* _mainCamera;
-		std::vector<DirectionalLight*>* _lights;
+		World();
 
-        World(const World&);
-        World& operator=(const World&);
+		static World * world;
+
+	    Camera* _mainCamera;
+		std::vector<AbstractLight*>* _lights;
+
+        World(const World&) = delete;
+        World& operator=(const World&) = delete;
 };
 
 

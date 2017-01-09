@@ -11,7 +11,7 @@ public:
 
 	glm::vec3 _direction;
 
-	DirectionalLight(glm::vec3 dir = glm::vec3(-1), glm::vec3 dif = glm::vec3(1), glm::vec3 amb = glm::vec3(0.1f), glm::vec3 spec = glm::vec3(1));
+	DirectionalLight(glm::vec3 pDirection = glm::vec3(0, -1, 0), glm::vec3 pDiffuse = glm::vec3(1, 1, 1), glm::vec3 pAmbient = glm::vec3(0.1f, 0.1f, 0.1f));
 	~DirectionalLight();
 };
 

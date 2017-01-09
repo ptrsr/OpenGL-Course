@@ -20,6 +20,9 @@
     <Filter Include="MGE Source files\mge\util">
       <UniqueIdentifier>{7d824c34-4bb6-43a4-a48a-0d68b7aad6e5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="MGE Source files\mge\behaviours\Light">
+      <UniqueIdentifier>{6191f85b-fb95-4d9e-9b7b-3bb2e5997a76}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\glm.hpp">
@@ -88,6 +91,12 @@
     <ClInclude Include="..\src\mge\materials\LitMaterial.hpp">
       <Filter>MGE Source files\mge\materials</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\AbstractLight.hpp">
+      <Filter>MGE Source files\mge\behaviours\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\behaviours\DirectionalLight.hpp">
+      <Filter>MGE Source files\mge\behaviours\Light</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -152,6 +161,9 @@
     </ClCompile>
     <ClCompile Include="..\src\mge\materials\LitMaterial.cpp">
       <Filter>MGE Source files\mge\materials</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\behaviours\DirectionalLight.cpp">
+      <Filter>MGE Source files\mge\behaviours\Light</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
