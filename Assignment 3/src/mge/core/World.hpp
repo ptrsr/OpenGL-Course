@@ -18,7 +18,9 @@ class World : public GameObject
 
 		std::vector<AbstractLight*>* GetLights();
 
-		void add(GameObject* pChild);
+		void addChild(GameObject*);
+
+		void addLight(AbstractLight*);
 
 	private:
 		World();

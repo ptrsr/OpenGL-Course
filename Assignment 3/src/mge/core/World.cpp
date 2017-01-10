@@ -17,14 +17,14 @@ World* World::get()
 	return world;
 }
 
-void World::add(GameObject* pChild)
+void World::addChild(GameObject* pChild)
 {
 	pChild->setParent(this);
+}
 
-	AbstractBehaviour* behaviour = pChild->getBehaviour();
-
-	if (behaviour != nullptr && dynamic_cast<AbstractLight*>(behaviour))
-		_lights->push_back((AbstractLight*)behaviour);
+void World::addLight(AbstractLight* pLight)
+{
+	_lights->push_back(pLight);
 }
 
 void World::setMainCamera (Camera* pCamera) {

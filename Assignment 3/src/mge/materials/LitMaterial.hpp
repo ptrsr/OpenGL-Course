@@ -6,7 +6,7 @@
 
 #include "mge/materials/AbstractMaterial.hpp"
 #include "mge/core/ShaderProgram.hpp"
-#include "mge/behaviours/DirectionalLight.hpp"
+#include "mge/behaviours/AbstractLight.hpp"
 #include "mge/core/World.hpp"
 
 class LitMaterial : public AbstractMaterial

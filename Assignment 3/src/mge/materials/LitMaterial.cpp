@@ -2,6 +2,11 @@
 #include "mge/core/Mesh.hpp"
 #include "mge/core/GameObject.hpp"
 #include "mge/config.hpp"
+
+#include "mge/behaviours/DirectionalLight.hpp"
+#include "mge/behaviours/PointLight.hpp"
+#include "mge/behaviours/SpotLight.hpp"
+
 #include <string>
 
 ShaderProgram* LitMaterial::_shader = NULL;
@@ -76,20 +81,59 @@ void LitMaterial::render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::
 
 void LitMaterial::addLights()
 {
-	
-	int dLights;
-	for each (AbstractLight* light in *_lights)
-	{
-		if (typeid(*light) == typeid(DirectionalLight))
-		{
-			string num = std::to_string(dLights);
-			DirectionalLight* nLight = static_cast<DirectionalLight*>(light);
+	int dLights = 0;
+	int pLights = 0;
+	int sLights = 0;
 
-			glUniform3fv(_shader->getUniformLocation("dirLight[" + num + "].direction"), 1, glm::value_ptr(nLight->_direction));
-			glUniform3fv(_shader->getUniformLocation("dirLight[" + num + "].ambient"), 1, glm::value_ptr(nLight->_ambient));
-			glUniform3fv(_shader->getUniformLocation("dirLight[" + num + "].diffuse"), 1, glm::value_ptr(nLight->_diffuse));
-			glUniform3fv(_shader->getUniformLocation("dirLight[" + num + "].specular"), 1, glm::value_ptr(nLight->_specular));
+	for each (AbstractLight* aLight in *_lights)
+	{
+		std::string lType = "";
+		std::string num   = "";
+
+		if (typeid(*aLight) == typeid(DirectionalLight))
+		{
+			num = std::to_string(dLights);
+			lType = "dirLight";
+
+			glm::vec3 dir = glm::normalize(aLight->getOwner()->getTransform()[2]);
+			glUniform3fv(_shader->getUniformLocation("dirLight[" + num + "].direction"), 1, glm::value_ptr(dir));
+
 			dLights++;
 		}
+		else if (typeid(*aLight) == typeid(PointLight))
+		{
+			num   = std::to_string(pLights);
+			lType = "pointLight";
+
+			PointLight* light = static_cast<PointLight*>(aLight);
+
+			glUniform3fv(_shader->getUniformLocation("pointLight[" + num + "].position"), 1, glm::value_ptr(light->getOwner()->getWorldPosition()));
+
+			glUniform1f(_shader->getUniformLocation("pointLight[" + num + "].constant"), light->_constant);
+			glUniform1f(_shader->getUniformLocation("pointLight[" + num + "].linear"), light->_linear);
+			glUniform1f(_shader->getUniformLocation("pointLight[" + num + "].quadratic"), light->_quadratic);
+			pLights++;
+		}
+		else if (typeid(*aLight) == typeid(SpotLight))
+		{
+			num = std::to_string(sLights);
+			lType = "spotLight";
+
+			PointLight* light = static_cast<PointLight*>(aLight);
+
+			glm::vec3 dir = glm::normalize(aLight->getOwner()->getTransform()[2]);
+			glUniform3fv(_shader->getUniformLocation("spotLight[" + num + "].direction"), 1, glm::value_ptr(dir));
+			glUniform3fv(_shader->getUniformLocation("spotLight[" + num + "].position"), 1, glm::value_ptr(light->getOwner()->getWorldPosition()));
+
+			glUniform1f(_shader->getUniformLocation("spotLight[" + num + "].constant"), light->_constant);
+			glUniform1f(_shader->getUniformLocation("spotLight[" + num + "].linear"), light->_linear);
+			glUniform1f(_shader->getUniformLocation("spotLight[" + num + "].quadratic"), light->_quadratic);
+			sLights++;
+		}
+
+		//All lights have these values, so it's unnececary to cast
+		glUniform3fv(_shader->getUniformLocation(lType + "[" + num + "].ambient"), 1, glm::value_ptr(aLight->_ambient));
+		glUniform3fv(_shader->getUniformLocation(lType + "[" + num + "].diffuse"), 1, glm::value_ptr(aLight->_diffuse));
+		glUniform3fv(_shader->getUniformLocation(lType + "[" + num + "].specular"), 1, glm::value_ptr(aLight->_specular));
 	}
 }

@@ -7,9 +7,9 @@
 class AbstractLight : public AbstractBehaviour
 {
 public:
-	AbstractLight() { };
+	AbstractLight();
 
-	virtual void update(float pStep) { };
+	virtual void update(float pStep) {  };
 
 	glm::vec3 _diffuse;
 	glm::vec3 _ambient;
