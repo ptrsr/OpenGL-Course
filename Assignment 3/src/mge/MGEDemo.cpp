@@ -58,12 +58,12 @@ void MGEDemo::_initializeScene()
     _world->setMainCamera(camera);
 
     ///PLANE
-    //GameObject* plane = new GameObject ("plane", glm::vec3(0,0,0));
+ //   GameObject* plane = new GameObject ("plane", glm::vec3(0,0,0));
 	//Mesh* planeMesh = Mesh::load(config::MGE_MODEL_PATH + "plane.obj");
 	//plane->setMesh(planeMesh);
 	//plane->scale(glm::vec3(5,5,5));
-    //plane->setMaterial(new TextureMaterial(Texture::load(config::MGE_TEXTURE_PATH + "land.jpg"));
-    //_world->add(plane);
+ //   plane->setMaterial(new LitMaterial(_world->GetLights()));
+ //   _world->add(plane);
 
 	///RED DIR
 	//GameObject* lightSource = new GameObject("lightSource");
@@ -78,7 +78,7 @@ void MGEDemo::_initializeScene()
 	///POINT LIGHT
 	//glm::vec3 pointColor = glm::vec3(1, 0, 0);
 	//
-	//GameObject* rotor = new GameObject("rotor", glm::vec3(0, 1, 0));
+	//GameObject* rotor = new GameObject("rotor", glm::vec3(0, 1.5f, 0));
 	//GameObject* point = new GameObject("point");
 	//rotor->setBehaviour(new RotatingBehaviour());
 	//point->setParent(rotor);
@@ -92,7 +92,7 @@ void MGEDemo::_initializeScene()
 	///POINT LIGHT 2
 	//glm::vec3 pointColor2 = glm::vec3(0, 0, 1);
 
-	//GameObject* rotor2 = new GameObject("rotor2", glm::vec3(0, 1, 0));
+	//GameObject* rotor2 = new GameObject("rotor2", glm::vec3(0, 1.5f, 0.3f));
 	//GameObject* point2 = new GameObject("point2");
 	//rotor2->setBehaviour(new RotatingBehaviour());
 	//point2->setParent(rotor2);
@@ -101,7 +101,7 @@ void MGEDemo::_initializeScene()
 	//point2->setMesh(Mesh::load(config::MGE_MODEL_PATH + "sphere_flat.obj", 0.1f));
 	//point2->setMaterial(new ColorMaterial(pointColor2));
 	//point2->setBehaviour(new PointLight(pointColor2, glm::vec3(0.1f), glm::vec3(1), 0.4f, 0.5f, 0.7f));
-	//point2->translate(glm::vec3(0, 0, 1));
+	//point2->translate(glm::vec3(0, 0, -1));
 	//rotor2->rotate(180.0f, glm::vec3(1, 0, 0));
 
 	///SPOT LIGHT
@@ -111,11 +111,10 @@ void MGEDemo::_initializeScene()
 	spotRotor->setBehaviour(new RotatingBehaviour());
 	_world->addChild(spotRotor);
 
-	GameObject * spotLight = new GameObject("spotLight", glm::vec3(0, 0, -1));
-	spotLight->setBehaviour(new SpotLight(spotColor, spotColor, glm::vec3(1), 0.5f, 0.4f, 0.6f, 1.0f, 1.2f));
-	spotLight->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cone_flat.obj"));
+	GameObject * spotLight = new GameObject("spotLight", glm::vec3(0, 1.3f, -1));
+	spotLight->setBehaviour(new SpotLight(spotColor, spotColor / 3.f, glm::vec3(1), 0.5f, 0.4f, 0.6f, 0.9f, 0.7f));
 	spotLight->setMaterial(new ColorMaterial(spotColor));
-	spotLight->setParent(spotRotor);
+	_world->add(spotLight);
 
 	///LUCAS
     GameObject* lucas = new GameObject ("Lucas", glm::vec3(0, 0, 0));

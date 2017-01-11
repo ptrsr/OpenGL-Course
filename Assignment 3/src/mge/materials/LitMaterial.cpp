@@ -119,7 +119,7 @@ void LitMaterial::addLights()
 			num = std::to_string(sLights);
 			lType = "spotLight";
 
-			PointLight* light = static_cast<PointLight*>(aLight);
+			SpotLight* light = static_cast<SpotLight*>(aLight);
 
 			glm::vec3 dir = glm::normalize(aLight->getOwner()->getTransform()[2]);
 			glUniform3fv(_shader->getUniformLocation("spotLight[" + num + "].direction"), 1, glm::value_ptr(dir));
@@ -128,6 +128,9 @@ void LitMaterial::addLights()
 			glUniform1f(_shader->getUniformLocation("spotLight[" + num + "].constant"), light->_constant);
 			glUniform1f(_shader->getUniformLocation("spotLight[" + num + "].linear"), light->_linear);
 			glUniform1f(_shader->getUniformLocation("spotLight[" + num + "].quadratic"), light->_quadratic);
+
+			glUniform1f(_shader->getUniformLocation("spotLight[" + num + "].cutOff"), light->_cutOff);
+			glUniform1f(_shader->getUniformLocation("spotLight[" + num + "].outerCutOff"), light->_outerCutOff);
 			sLights++;
 		}
 
@@ -136,4 +139,5 @@ void LitMaterial::addLights()
 		glUniform3fv(_shader->getUniformLocation(lType + "[" + num + "].diffuse"), 1, glm::value_ptr(aLight->_diffuse));
 		glUniform3fv(_shader->getUniformLocation(lType + "[" + num + "].specular"), 1, glm::value_ptr(aLight->_specular));
 	}
+	glUniform3fv(_shader->getUniformLocation("lightCount"), 1, glm::value_ptr(glm::vec3(dLights, pLights, sLights)));
 }

@@ -1,12 +1,11 @@
 #version 330
-#define DLIGHTS 0
-#define PLIGHTS 0
-#define SLIGHTS 1
+#define LIGHTBUFFERSIZE 5
 
 uniform mat4 modelMatrix;
 uniform vec3 modelColor;
 uniform vec3 cameraPos;
 uniform float shininess;
+uniform vec3 lightCount;
 
 in vec3 fNormal;
 in vec3 fPos;
@@ -21,7 +20,7 @@ struct DirLight
 	vec3 diffuse;
 	vec3 specular;
 	
-}; uniform DirLight dirLight[5];
+}; uniform DirLight dirLight[LIGHTBUFFERSIZE];
 
 struct PointLight
 {
@@ -35,7 +34,7 @@ struct PointLight
 	float linear;
 	float quadratic;
 	
-}; uniform PointLight pointLight[5];
+}; uniform PointLight pointLight[LIGHTBUFFERSIZE];
 
 struct SpotLight
 {
@@ -53,8 +52,31 @@ struct SpotLight
 	float cutOff;
 	float outerCutOff;
 	
-}; uniform SpotLight spotLight[5];
+}; uniform SpotLight spotLight[LIGHTBUFFERSIZE];
 
+
+vec3 CalcDirLight(DirLight, vec3, vec3);
+vec3 CalcPointLight(PointLight, vec3, vec3);
+vec3 CalcSpotLight(SpotLight, vec3, vec3);
+
+
+void main( void ) 
+{
+	vec3 wNormal = vec3 (modelMatrix * vec4(fNormal, 0));
+	vec3 viewDir = normalize(cameraPos -  fPos);
+	vec3 color;
+	
+	for (int i = 0; i < lightCount.x; i++)
+		color += CalcDirLight(dirLight[i], wNormal, viewDir);
+	
+	for (int i = 0; i < lightCount.y; i++)
+		color += CalcPointLight(pointLight[i], wNormal, viewDir);
+	
+	for (int i = 0; i < lightCount.z; i++)
+		color += CalcSpotLight(spotLight[i], wNormal, viewDir);
+	
+	fColor = vec4(color, 1);
+}
 
 vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
 {
@@ -92,42 +114,30 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 viewDir)
 
 
 vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 viewDir)
-{
+{	
 	vec3 lightDir = normalize(fPos - light.position);
+
+	float angle = dot(light.direction, lightDir);
+	
+	float distance    = length(light.position - fPos);
+    float attenuation = 1.0f / (light.constant + light.linear * distance + 
+  			     light.quadratic * (distance * distance));
+	
+	vec3 ambient  = light.ambient  * modelColor * attenuation;
+	
+		if (angle < light.cutOff)
+			return ambient;
+	
+	//float fDif = 1.0f - light.cutOff;
+	float fDif = 0.1f;
+	float factor = clamp((angle - light.cutOff) / fDif, 0, 1);
 	
     float diff = max(0, dot(-lightDir, normal));
 	vec3 ref = reflect(lightDir, normal);
     float spec = pow(max(dot(viewDir, ref), 0), shininess);
-	
-	float distance    = length(light.position - fPos);
-    float attenuation = 1.0f / (light.constant + light.linear * distance + 
-  			     light.quadratic * (distance * distance)); 
 				 
-    float theta = dot(lightDir, light.direction); 
-    float epsilon = light.cutOff - light.outerCutOff;
-    float intensity = clamp((theta - light.outerCutOff) / epsilon, 0.0f, 1.0f) * attenuation;
+    vec3 diffuse  = light.diffuse  * diff * modelColor * attenuation;
+    vec3 specular = light.specular * spec * modelColor * attenuation;
 	
-    vec3 ambient  = light.ambient  * intensity * modelColor;
-    vec3 diffuse  = light.diffuse  * intensity * diff * modelColor;
-    vec3 specular = light.specular * intensity * spec * modelColor;
-
-    return (ambient + diffuse + specular);
-}
-
-void main( void ) 
-{
-	vec3 wNormal = vec3 (modelMatrix * vec4(fNormal, 0));
-	vec3 viewDir = normalize(cameraPos -  fPos);
-	vec3 color;
-	
-	for (int i = 0; i < DLIGHTS; i++)
-		color += CalcDirLight(dirLight[i], wNormal, viewDir);
-	
-	for (int i = 0; i < PLIGHTS; i++)
-		color += CalcPointLight(pointLight[i], wNormal, viewDir);
-	
-	for (int i = 0; i < SLIGHTS; i++)
-		color += CalcSpotLight(spotLight[i], wNormal, viewDir);
-	
-	fColor = vec4(color, 1);
+	return ambient + (diffuse + specular) * factor;
 }
