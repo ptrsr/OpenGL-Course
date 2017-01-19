@@ -290,6 +290,18 @@
     <ClCompile Include="..\src\mge\behaviours\OrbitBehaviour.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\assets\mge\shaders\color.fs" />
+    <None Include="..\assets\mge\shaders\color.vs" />
+    <None Include="..\assets\mge\shaders\litFragment.fs" />
+    <None Include="..\assets\mge\shaders\litFragment.vs" />
+    <None Include="..\assets\mge\shaders\litVertex.fs" />
+    <None Include="..\assets\mge\shaders\litVertex.vs" />
+    <None Include="..\assets\mge\shaders\terrain.fs" />
+    <None Include="..\assets\mge\shaders\terrain.vs" />
+    <None Include="..\assets\mge\shaders\texture.fs" />
+    <None Include="..\assets\mge\shaders\texture.fs.temp" />
+    <None Include="..\assets\mge\shaders\texture.vs" />
+    <None Include="..\assets\mge\shaders\wobble.vs" />
     <None Include="..\src\mge\core\lua\Makefile" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

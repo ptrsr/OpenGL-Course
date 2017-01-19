@@ -49,7 +49,6 @@ artifacts/
 *_i.h
 *.ilk
 *.meta
-*.obj
 *.pch
 *.pdb
 *.pgc
@@ -251,7 +250,6 @@ paket-files/
 .idea/
 *.sln.iml
 *.tlog
-openGL empty template/_vs2015/
-Assignment 1/_vs2015/
-MGE/_vs2015/
-Assignment 3/_vs2015/
+
+Assignments/_vs2015/
+MGE clean/_vs2015/

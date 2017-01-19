@@ -60,8 +60,13 @@ void TerrainScene::_initializeScene()
 
 	GameObject* terrain = new GameObject("terrain");
 	terrain->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane_8192.obj"));
-	terrain->setMaterial(new TerrainMaterial(Texture::load(config::MGE_TEXTURE_PATH + "/terrain/diffuse1.jpg"), 
-											 Texture::load(config::MGE_TEXTURE_PATH + "/terrain/heightmap.png")));
+	//terrain->setMaterial(new TerrainMaterial("heightmap.png", "diffuse1.jpg", "water.jpg", "diffuse3.jpg", "diffuse4.jpg", "splatmap.png"));
+	terrain->setMaterial(new TerrainMaterial("heightmap2.png", "water.jpg", "diffuse1.jpg", "diffuse3.jpg", "diffuse2.jpg", "splatmap2.png"));
+	//terrain->setMaterial(new LitMaterial());
+
+	GameObject* light = new GameObject("light");
+	light->setBehaviour(new DirectionalLight());
+	light->rotate(45, glm::vec3(1, 0, 0));
 
 	_world->addChild(terrain);
 

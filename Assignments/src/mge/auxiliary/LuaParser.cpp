@@ -9,7 +9,7 @@
 
 int createObject(lua_State * lua) 
 {
-	glm::vec3 position = glm::vec3(glm::vec3(lua_tonumber(lua, -7), lua_tonumber(lua, -6), lua_tonumber(lua, -5)));
+	glm::vec3 position = glm::vec3(lua_tonumber(lua, -7), lua_tonumber(lua, -6), -lua_tonumber(lua, -5));
 	glm::vec3 scale = glm::vec3(lua_tonumber(lua, -4), lua_tonumber(lua, -3), lua_tonumber(lua, -2));
 
 	GameObject* obj = new GameObject(lua_tostring(lua, -8), position);

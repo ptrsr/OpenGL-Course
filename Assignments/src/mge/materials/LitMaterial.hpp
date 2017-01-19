@@ -15,7 +15,8 @@ public:
 	enum Lit
 	{
 		fragment,
-		vertex
+		vertex,
+		splat
 	};
 
 	LitMaterial(Lit pLit = vertex, glm::vec3 pModelColor = glm::vec3(1), float pShininess = 10.0f, std::vector<AbstractLight*>* pLights = World::get()->GetLights());
@@ -23,16 +24,15 @@ public:
 
 	virtual void render(Mesh* pMesh, const glm::mat4& pModelMatrix, const glm::mat4& pViewMatrix, const glm::mat4& pProjectionMatrix) override;
 
-private:
+protected:
+	static void _lazyInitializeShader(std::string shaderName);
+	void addLights();
 
 	std::vector<AbstractLight*>* _lights;
 	glm::vec3 _modelColor;
 	float _shininess;
 	
-	static Lit _lit;
-
 	static ShaderProgram* _shader;
-	static void _lazyInitializeShader();
 
 	//vertex uniforms
 	static GLint _uMVPMatrix;
@@ -41,15 +41,21 @@ private:
 	//vertex attributes
 	static GLint _aVertex;
 	static GLint _aNormal;
+	static GLint _aUV;
 
 	//fragment uniforms
 	static GLint _uModelColor;
 	static GLint _uShininess;
 	static GLint _uCameraPos;
 
+private:
+	static Lit _lit;
+
 	LitMaterial(const LitMaterial&);
 
-	void addLights();
+	
+
+
 };
 
 #endif // LITMATERIAL_H

@@ -23,14 +23,20 @@
     <Filter Include="MGE Source files\mge\behaviours\Light">
       <UniqueIdentifier>{6191f85b-fb95-4d9e-9b7b-3bb2e5997a76}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MGE Source files\Scenes">
-      <UniqueIdentifier>{b48956f6-d9de-4b73-aca1-9fb81bc04f6b}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MGE Source files\mge\auxiliary">
       <UniqueIdentifier>{43f710dd-1c7a-42d7-9f53-f4b018bdc5db}</UniqueIdentifier>
     </Filter>
     <Filter Include="MGE Source files\mge\core\lua">
       <UniqueIdentifier>{56a2edcf-8750-43d5-8673-cdaab6c2fb21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MGE Source files\scenes">
+      <UniqueIdentifier>{b48956f6-d9de-4b73-aca1-9fb81bc04f6b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{30840a28-d8dc-4611-8dc3-f6eba2561fc6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets\shaders">
+      <UniqueIdentifier>{af195ac6-8395-4446-98c0-d54117a3071b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -113,10 +119,10 @@
       <Filter>MGE Source files\mge\materials</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\scenes\LightScene.hpp">
-      <Filter>MGE Source files\Scenes</Filter>
+      <Filter>MGE Source files\scenes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\scenes\TerrainScene.hpp">
-      <Filter>MGE Source files\Scenes</Filter>
+      <Filter>MGE Source files\scenes</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\auxiliary\LuaParser.hpp">
       <Filter>MGE Source files\mge\auxiliary</Filter>
@@ -203,7 +209,7 @@
       <Filter>MGE Source files\mge\auxiliary</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\scenes\UnityScene.hpp">
-      <Filter>MGE Source files\Scenes</Filter>
+      <Filter>MGE Source files\scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -283,10 +289,10 @@
       <Filter>MGE Source files\mge\materials</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\scenes\LightScene.cpp">
-      <Filter>MGE Source files\Scenes</Filter>
+      <Filter>MGE Source files\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\scenes\TerrainScene.cpp">
-      <Filter>MGE Source files\Scenes</Filter>
+      <Filter>MGE Source files\scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\auxiliary\LuaParser.cpp">
       <Filter>MGE Source files\mge\auxiliary</Filter>
@@ -394,12 +400,48 @@
       <Filter>MGE Source files\mge\auxiliary</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\scenes\UnityScene.cpp">
-      <Filter>MGE Source files\Scenes</Filter>
+      <Filter>MGE Source files\scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\mge\core\lua\Makefile">
       <Filter>MGE Source files\mge\core\lua</Filter>
+    </None>
+    <None Include="..\assets\mge\shaders\color.fs">
+      <Filter>assets\shaders</Filter>
+    </None>
+    <None Include="..\assets\mge\shaders\color.vs">
+      <Filter>assets\shaders</Filter>
+    </None>
+    <None Include="..\assets\mge\shaders\litFragment.fs">
+      <Filter>assets\shaders</Filter>
+    </None>
+    <None Include="..\assets\mge\shaders\litFragment.vs">
+      <Filter>assets\shaders</Filter>
+    </None>
+    <None Include="..\assets\mge\shaders\litVertex.fs">
+      <Filter>assets\shaders</Filter>
+    </None>
+    <None Include="..\assets\mge\shaders\litVertex.vs">
+      <Filter>assets\shaders</Filter>
+    </None>
+    <None Include="..\assets\mge\shaders\terrain.fs">
+      <Filter>assets\shaders</Filter>
+    </None>
+    <None Include="..\assets\mge\shaders\terrain.vs">
+      <Filter>assets\shaders</Filter>
+    </None>
+    <None Include="..\assets\mge\shaders\texture.fs">
+      <Filter>assets\shaders</Filter>
+    </None>
+    <None Include="..\assets\mge\shaders\texture.fs.temp">
+      <Filter>assets\shaders</Filter>
+    </None>
+    <None Include="..\assets\mge\shaders\texture.vs">
+      <Filter>assets\shaders</Filter>
+    </None>
+    <None Include="..\assets\mge\shaders\wobble.vs">
+      <Filter>assets\shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

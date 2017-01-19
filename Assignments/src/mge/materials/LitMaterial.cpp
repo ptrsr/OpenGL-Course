@@ -24,29 +24,32 @@ GLint LitMaterial::_uCameraPos = 0;
 //vertex attributes
 GLint LitMaterial::_aVertex = 0;
 GLint LitMaterial::_aNormal = 0;
-
+GLint LitMaterial::_aUV = 0;
 
 LitMaterial::LitMaterial(Lit pLit, glm::vec3 pModelColor, float pShininess, std::vector<AbstractLight*>* pLights)
 	: _modelColor(pModelColor), _shininess(pShininess), _lights(pLights)
 {
 	_lit = pLit;
-	_lazyInitializeShader();
+	
+	std::string shaderName;
+
+	if (pLit == Lit::vertex)
+		shaderName = "litVertex";
+	else if (pLit == Lit::fragment)
+		shaderName = "litFragment";
+	else
+		shaderName = "terrain";
+
+	_lazyInitializeShader(shaderName);
 }
 
 LitMaterial::~LitMaterial() {}
 
-void LitMaterial::_lazyInitializeShader() 
+void LitMaterial::_lazyInitializeShader(std::string shaderName) 
 {
 	if (!_shader) 
 	{
 		_shader = new ShaderProgram();
-
-		std::string shaderName;
-
-		if (_lit = vertex)
-			shaderName = "litVertex";
-		else
-			shaderName = "litFragment";
 
 		_shader->addShader(GL_VERTEX_SHADER, config::MGE_SHADER_PATH + shaderName + ".vs");
 		_shader->addShader(GL_FRAGMENT_SHADER, config::MGE_SHADER_PATH + shaderName + ".fs");
