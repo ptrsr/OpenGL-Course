@@ -76,58 +76,58 @@ void LightScene::_initializeScene()
 	//lightSource2->setBehaviour(new DirectionalLight(glm::vec3(1, 1, 1), glm::vec3(1,0,0), glm::vec3(0,0,0)));
 	//_world->addChild(lightSource2);
 
-	///POINT LIGHT
-	//glm::vec3 pointColor = glm::vec3(1, 0, 0);
-	//
-	//GameObject* rotor = new GameObject("rotor", glm::vec3(0, 1.5f, 0));
-	//GameObject* point = new GameObject("point");
-	//rotor->setBehaviour(new RotatingBehaviour());
-	//point->setParent(rotor);
-	//_world->addChild(rotor);
 
-	//point->setMesh(Mesh::load(config::MGE_MODEL_PATH + "sphere_flat.obj", 0.1f));
-	//point->setMaterial(new ColorMaterial(pointColor));
-	//point->setBehaviour(new PointLight(pointColor, glm::vec3(0.1f), glm::vec3(1), 0.4f, 0.5f, 0.7f));
-	//point->translate(glm::vec3(0, 0, 1));
-
-	///POINT LIGHT 2
-	//glm::vec3 pointColor2 = glm::vec3(0, 0, 1);
-
-	//GameObject* rotor2 = new GameObject("rotor2", glm::vec3(0, 1.5f, 0.3f));
-	//GameObject* point2 = new GameObject("point2");
-	//rotor2->setBehaviour(new RotatingBehaviour());
-	//point2->setParent(rotor2);
-	//_world->addChild(rotor2);
-
-	//point2->setMesh(Mesh::load(config::MGE_MODEL_PATH + "sphere_flat.obj", 0.1f));
-	//point2->setMaterial(new ColorMaterial(pointColor2));
-	//point2->setBehaviour(new PointLight(pointColor2, glm::vec3(0.1f), glm::vec3(1), 0.4f, 0.5f, 0.7f));
-	//point2->translate(glm::vec3(0, 0, -1));
-	//rotor2->rotate(180.0f, glm::vec3(1, 0, 0));
-
-	///SPOT LIGHT
-	glm::vec3 spotColor = glm::vec3(1);
-
-	GameObject* spotRotor = new GameObject("spotrotor");
-	spotRotor->setBehaviour(new RotatingBehaviour());
-	_world->addChild(spotRotor);
-
-	GameObject* spotLight = new GameObject("spotLight", glm::vec3(0, 1.3f, -1));
-	spotLight->setMesh(Mesh::load(config::MGE_MODEL_PATH + "cone.obj", 0.005f));
-	spotLight->setMaterial(new ColorMaterial(glm::vec3(1, 1, 1)));
-	spotLight->setBehaviour(new SpotLight(spotColor, spotColor / 3.f, glm::vec3(1), 0.5f, 0.4f, 0.6f, 0.9f, 0.7f));
-	spotLight->setMaterial(new ColorMaterial(spotColor));
-	spotLight->setParent(spotRotor);
 
 	///LUCAS
-    GameObject* lucas = new GameObject ("Lucas", glm::vec3(0, 0, 0));
-    lucas->setMesh(Mesh::load(config::MGE_MODEL_PATH + "lucas.obj", 0.0013f));
-    lucas->setMaterial(new LitMaterial(LitMaterial::Lit::fragment));
-    _world->addChild(lucas);
+    //GameObject* lucas = new GameObject ("Lucas", glm::vec3(0, 0, 0));
+    //lucas->setMesh(Mesh::load(config::MGE_MODEL_PATH + "lucas.obj", 0.0013f));
+    //lucas->setMaterial(new LitMaterial(LitMaterial::Lit::fragment));
+    //_world->addChild(lucas);
+
+	///SUZANA
+	GameObject* suzana = new GameObject("suzana", glm::vec3(0, 1.f, 0));
+	suzana->setMesh(Mesh::load(config::MGE_MODEL_PATH + "suzanna_smooth.obj", 0.5f));
+	suzana->setMaterial(new LitMaterial(LitMaterial::Lit::fragment, glm::vec3(1), 40.0f));
+	_world->addChild(suzana);
+
+	///FOOTBALL
+	//GameObject* football = new GameObject("football", glm::vec3(0, 0.5f, 0));
+	//football->setMesh(Mesh::load(config::MGE_MODEL_PATH + "sphere_smooth.obj", 0.5f));
+	//football->setMaterial(new WobbleMaterial(Texture::load(config::MGE_TEXTURE_PATH + "ball.jpg")));
+	//_world->addChild(football);
 
 	///CAMERA
 	GameObject* empty = new GameObject("empty", glm::vec3(0, 1, 0));
 	camera->setBehaviour(new OrbitBehaviour(empty, 3));
+
+	///POINT LIGHT
+	glm::vec3 pointColor = glm::vec3(1, 0, 0);
+
+	GameObject* rotor = new GameObject("rotor", glm::vec3(0, 1.5f, 0));
+	GameObject* point = new GameObject("point");
+	rotor->setBehaviour(new RotatingBehaviour());
+	point->setParent(rotor);
+	_world->addChild(rotor);
+
+	point->setMesh(Mesh::load(config::MGE_MODEL_PATH + "sphere_flat.obj", 0.1f));
+	point->setMaterial(new ColorMaterial(pointColor));
+	point->setBehaviour(new PointLight(pointColor, glm::vec3(0.1f), glm::vec3(1), 0.4f, 0.5f, 0.7f));
+	point->translate(glm::vec3(0, 0, 1));
+
+	///POINT LIGHT 2
+	glm::vec3 pointColor2 = glm::vec3(0, 0, 1);
+
+	GameObject* rotor2 = new GameObject("rotor2", glm::vec3(0, 1.5f, 0.3f));
+	GameObject* point2 = new GameObject("point2");
+	rotor2->setBehaviour(new RotatingBehaviour());
+	point2->setParent(rotor2);
+	_world->addChild(rotor2);
+
+	point2->setMesh(Mesh::load(config::MGE_MODEL_PATH + "sphere_flat.obj", 0.1f));
+	point2->setMaterial(new ColorMaterial(pointColor2));
+	point2->setBehaviour(new PointLight(pointColor2, glm::vec3(0.1f), glm::vec3(1), 0.4f, 0.5f, 0.7f));
+	point2->translate(glm::vec3(0, 0, -1));
+	rotor2->rotate(180.0f, glm::vec3(1, 0, 0));
 }
 
 void LightScene::_render() {

@@ -105,7 +105,7 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 viewDir)
     float attenuation = 1.0f / (light.constant + light.linear * distance + 
   			     light.quadratic * (distance * distance));
 				 
-    vec3 ambient  = light.ambient  * modelColor * attenuation;
+    vec3 ambient  = light.ambient  * modelColor;
     vec3 diffuse  = light.diffuse  * diff * modelColor * attenuation;
     vec3 specular = light.specular * spec * modelColor * attenuation;
 
@@ -123,14 +123,12 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 viewDir)
     float attenuation = 1.0f / (light.constant + light.linear * distance + 
   			     light.quadratic * (distance * distance));
 	
-	vec3 ambient  = light.ambient  * modelColor * attenuation;
+	vec3 ambient  = light.ambient  * modelColor;
 	
 		if (angle < light.cutOff)
 			return ambient;
 	
-	//float fDif = 1.0f - light.cutOff;
-	float fDif = 0.1f;
-	float factor = clamp((angle - light.cutOff) / fDif, 0, 1);
+	float factor = clamp((angle - light.cutOff) / light.outerCutOff, 0, 1);
 	
     float diff = max(0, dot(-lightDir, normal));
 	vec3 ref = reflect(lightDir, normal);

@@ -211,6 +211,9 @@
     <ClInclude Include="..\src\mge\scenes\UnityScene.hpp">
       <Filter>MGE Source files\scenes</Filter>
     </ClInclude>
+    <ClInclude Include="..\src\mge\scenes\SpotScene.hpp">
+      <Filter>MGE Source files\scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\main.cpp">
@@ -400,6 +403,9 @@
       <Filter>MGE Source files\mge\auxiliary</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\scenes\UnityScene.cpp">
+      <Filter>MGE Source files\scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\mge\scenes\SpotScene.cpp">
       <Filter>MGE Source files\scenes</Filter>
     </ClCompile>
   </ItemGroup>

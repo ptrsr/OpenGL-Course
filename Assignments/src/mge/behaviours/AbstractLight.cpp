@@ -8,6 +8,11 @@ AbstractLight::AbstractLight()
 	std::cout << "light spawned" << std::endl;
 }
 
+AbstractLight::~AbstractLight()
+{
+	World::get()->removeLight(this);
+}
+
 glm::vec3 AbstractLight::getWorldPosition()
 {
 	return _owner->getWorldPosition();

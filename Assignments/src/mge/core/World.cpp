@@ -1,4 +1,5 @@
 #include "mge/core/World.hpp"
+#include <algorithm>
 
 using namespace std;
 
@@ -25,6 +26,11 @@ void World::addChild(GameObject* pChild)
 void World::addLight(AbstractLight* pLight)
 {
 	_lights->push_back(pLight);
+}
+
+void World::removeLight(AbstractLight* pLight)
+{
+	_lights->erase(std::remove(_lights->begin(), _lights->end(), pLight), _lights->end());
 }
 
 void World::setMainCamera (Camera* pCamera) {

@@ -56,32 +56,33 @@ struct SpotLight
 }; uniform SpotLight spotLight[LIGHTBUFFERSIZE];
 
 
-vec3 CalcDirLight(DirLight, vec3, vec3);
-vec3 CalcPointLight(PointLight, vec3, vec3);
-vec3 CalcSpotLight(SpotLight, vec3, vec3);
+vec3 CalcDirLight(DirLight, vec3, vec3, vec3);
+vec3 CalcPointLight(PointLight, vec3, vec3, vec3);
+vec3 CalcSpotLight(SpotLight, vec3, vec3, vec3);
 
 
 void main( void ) 
 {
 	gl_Position = mvpMatrix * vec4(vertex, 1.0f);
-
+	vec3 wVertex = (modelMatrix * vec4(vertex, 1.f)).xyz;
+	
 	vec3 wNormal = vec3 (modelMatrix * vec4(normal, 0));
-	vec3 viewDir = normalize(cameraPos -  vertex);
+	vec3 viewDir = normalize(cameraPos -  wVertex);
 	vec3 color;
 	
 	for (int i = 0; i < lightCount.x; i++)
-		color += CalcDirLight(dirLight[i], wNormal, viewDir);
+		color += CalcDirLight(dirLight[i], wNormal, viewDir, wVertex);
 	
 	for (int i = 0; i < lightCount.y; i++)
-		color += CalcPointLight(pointLight[i], wNormal, viewDir);
+		color += CalcPointLight(pointLight[i], wNormal, viewDir, wVertex);
 	
 	for (int i = 0; i < lightCount.z; i++)
-		color += CalcSpotLight(spotLight[i], wNormal, viewDir);
+		color += CalcSpotLight(spotLight[i], wNormal, viewDir, wVertex);
 	
 	vColor = color;
 }
 
-vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
+vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir, vec3 mVertex)
 {
 	float diff = max(0, dot(-light.direction, normal));
 	vec3 ref   = reflect(light.direction, normal);
@@ -95,7 +96,7 @@ vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir)
 }
 
 
-vec3 CalcPointLight(PointLight light, vec3 normal, vec3 viewDir)
+vec3 CalcPointLight(PointLight light, vec3 normal, vec3 viewDir, vec3 mVertex)
 {
 	vec3 lightDir = normalize(vertex - light.position);
 	
@@ -116,7 +117,7 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 viewDir)
 }
 
 
-vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 viewDir)
+vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 viewDir, vec3 mVertex)
 {	
 	vec3 lightDir = normalize(vertex - light.position);
 

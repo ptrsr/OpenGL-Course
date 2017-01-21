@@ -65,7 +65,7 @@ void TerrainScene::_initializeScene()
 	//terrain->setMaterial(new LitMaterial());
 
 	GameObject* light = new GameObject("light");
-	light->setBehaviour(new DirectionalLight());
+	light->setBehaviour(new DirectionalLight(glm::vec3(1), glm::vec3(0.1f), glm::vec3(0)));
 	light->rotate(45, glm::vec3(1, 0, 0));
 
 	_world->addChild(terrain);

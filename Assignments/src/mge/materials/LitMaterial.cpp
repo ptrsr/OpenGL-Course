@@ -139,8 +139,9 @@ void LitMaterial::addLights()
 			glUniform1f(_shader->getUniformLocation("spotLight[" + num + "].linear"), light->_linear);
 			glUniform1f(_shader->getUniformLocation("spotLight[" + num + "].quadratic"), light->_quadratic);
 
-			glUniform1f(_shader->getUniformLocation("spotLight[" + num + "].cutOff"), light->_cutOff);
-			glUniform1f(_shader->getUniformLocation("spotLight[" + num + "].outerCutOff"), light->_outerCutOff);
+			glUniform1f(_shader->getUniformLocation("spotLight[" + num + "].cutOff"), 1 - glm::sin(light->_cutOff * (glm::pi<float>() / 180.0f)));
+			glUniform1f(_shader->getUniformLocation("spotLight[" + num + "].outerCutOff"), glm::sin(light->_outerCutOff * (glm::pi<float>() / 180.0f)));
+
 			sLights++;
 		}
 

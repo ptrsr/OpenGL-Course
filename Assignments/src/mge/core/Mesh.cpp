@@ -141,15 +141,18 @@ Mesh* Mesh::load(string pFileName, float pScale)
 				{
 					int count = sscanf(line.c_str(), "%10s %d %d %d", cmd, &vertexIndex[0], &vertexIndex[1], &vertexIndex[2]);
 
-					glm::vec3 normal = glm::normalize(glm::cross(vertices[vertexIndex[1] - 1] - vertices[vertexIndex[0] - 1], vertices[vertexIndex[2] - 1] - vertices[vertexIndex[0] - 1]));
-					normals.push_back(normal);
-					normalIndex = glm::ivec3(normals.size());
+					if (count == 4)
+					{
+						glm::vec3 normal = glm::normalize(glm::cross(vertices[vertexIndex[1] - 1] - vertices[vertexIndex[0] - 1], vertices[vertexIndex[2] - 1] - vertices[vertexIndex[0] - 1]));
+						normals.push_back(normal);
+						normalIndex = glm::ivec3(normals.size());
 
-					uvs.push_back(glm::vec2());
-					uvIndex = glm::ivec3(uvs.size());
+						uvs.push_back(glm::vec2());
+						uvIndex = glm::ivec3(uvs.size());
+					}
+					else
+						std::cout << ".obj file not supported";
 				}
-
-                //Have we read exactly 10 elements?
 
                 //process 3 triplets, one for each vertex (which is first element of the triplet)
 				for ( int i = 0; i < 3; ++i ) {

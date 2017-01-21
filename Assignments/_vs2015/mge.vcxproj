@@ -219,6 +219,7 @@
     <ClInclude Include="..\src\mge\materials\TextureMaterial.hpp" />
     <ClInclude Include="..\src\mge\materials\WobbleMaterial.hpp" />
     <ClInclude Include="..\src\mge\scenes\LightScene.hpp" />
+    <ClInclude Include="..\src\mge\scenes\SpotScene.hpp" />
     <ClInclude Include="..\src\mge\scenes\TerrainScene.hpp" />
     <ClInclude Include="..\src\mge\scenes\UnityScene.hpp" />
     <ClInclude Include="..\src\mge\util\DebugHud.hpp" />
@@ -284,6 +285,7 @@
     <ClCompile Include="..\src\mge\materials\TextureMaterial.cpp" />
     <ClCompile Include="..\src\mge\materials\WobbleMaterial.cpp" />
     <ClCompile Include="..\src\mge\scenes\LightScene.cpp" />
+    <ClCompile Include="..\src\mge\scenes\SpotScene.cpp" />
     <ClCompile Include="..\src\mge\scenes\TerrainScene.cpp" />
     <ClCompile Include="..\src\mge\scenes\UnityScene.cpp" />
     <ClCompile Include="..\src\mge\util\DebugHud.cpp" />

@@ -21,6 +21,7 @@ class World : public GameObject
 		static void addChild(GameObject*);
 
 		void addLight(AbstractLight*);
+		void removeLight(AbstractLight*);
 
 	private:
 		World();

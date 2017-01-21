@@ -1,7 +1,5 @@
 #include "SpotLight.hpp"
 
-
-
 SpotLight::SpotLight(
 	glm::vec3 pDiffuse, 
 	glm::vec3 pAmbient, 

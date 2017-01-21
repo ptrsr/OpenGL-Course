@@ -18,6 +18,8 @@ public:
 	glm::vec3 getWorldPosition();
 	glm::vec3 getDirection();
 
+protected:
+	AbstractLight::~AbstractLight();
 };
 
 #endif // !ABSTRACTLIGHT_H

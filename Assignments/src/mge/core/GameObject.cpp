@@ -23,7 +23,8 @@ GameObject::~GameObject()
         delete child;
     }
 
-    //do not forget to delete behaviour, material, mesh, collider manually if required!
+	if (_behaviour)
+		delete _behaviour;
 }
 
 void GameObject::setName (std::string pName)
