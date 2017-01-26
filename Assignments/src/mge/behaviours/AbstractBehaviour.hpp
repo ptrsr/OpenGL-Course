@@ -1,6 +1,8 @@
 #ifndef ABSTRACTBEHAVIOUR_H
 #define ABSTRACTBEHAVIOUR_H
 
+#include "mge/core/Message.hpp"
+
 class GameObject;
 
 /**
@@ -26,6 +28,8 @@ class AbstractBehaviour
 
         //behaviour should be able to update itself every step and MUST be implemented
 		virtual void update(float pStep) = 0;
+
+		virtual void message(send::Message) = 0;
 
     protected:
 

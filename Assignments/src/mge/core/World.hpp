@@ -18,10 +18,15 @@ class World : public GameObject
 
 		std::vector<AbstractLight*>* GetLights();
 
-		static void addChild(GameObject*);
-
 		void addLight(AbstractLight*);
 		void removeLight(AbstractLight*);
+
+		static void add(GameObject* pChild);
+		static void remove(GameObject* pChild);
+
+protected:
+	virtual void _innerAdd(GameObject* pChild) override;
+	virtual void _innerRemove(GameObject* pChild) override;
 
 	private:
 		World();

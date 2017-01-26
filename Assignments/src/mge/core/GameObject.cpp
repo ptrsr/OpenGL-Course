@@ -181,3 +181,14 @@ GameObject* GameObject::getChildAt(int pIndex) {
     return _children[pIndex];
 }
 
+void GameObject::message(send::Message message) 
+{
+	if (_behaviour)
+	{
+		_behaviour->message(message);
+		std::cout << "MESSAGE SEND!!!!" << std::endl;
+	}
+
+	for each (GameObject* child in _children)
+		child->message(message);
+}

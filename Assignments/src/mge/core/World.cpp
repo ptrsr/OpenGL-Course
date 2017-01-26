@@ -18,11 +18,6 @@ World* World::get()
 	return world;
 }
 
-void World::addChild(GameObject* pChild)
-{
-	pChild->setParent(World::get());
-}
-
 void World::addLight(AbstractLight* pLight)
 {
 	_lights->push_back(pLight);
@@ -43,4 +38,26 @@ Camera* World::getMainCamera () {
 
 std::vector<AbstractLight*>* World::GetLights() {
 	return _lights;
+}
+
+void World::_innerAdd(GameObject* pChild)
+{
+	GameObject::_innerAdd(pChild);
+	pChild->message(send::addedToScene);
+}
+
+void World::_innerRemove(GameObject* pChild)
+{
+	GameObject::_innerRemove(pChild);
+	pChild->message(send::removedFromScene);
+}
+
+void World::add(GameObject* pChild)
+{
+	((GameObject*)World::get())->add(pChild);
+}
+
+void World::remove(GameObject* pChild)
+{
+	((GameObject*)World::get())->remove(pChild);
 }

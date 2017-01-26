@@ -54,23 +54,38 @@ void TerrainScene::_initializeScene()
 {
 	_renderer->setClearColor(0, 0, 0);
 
+	///CAMERA
 	Camera* camera = new Camera("camera", glm::vec3(0, 0, 0));
-	_world->addChild(camera);
+	_world->add(camera);
 	_world->setMainCamera(camera);
 
+	///TERRAIN
 	GameObject* terrain = new GameObject("terrain");
 	terrain->setMesh(Mesh::load(config::MGE_MODEL_PATH + "plane_8192.obj"));
-	//terrain->setMaterial(new TerrainMaterial("heightmap.png", "diffuse1.jpg", "water.jpg", "diffuse3.jpg", "diffuse4.jpg", "splatmap.png"));
-	terrain->setMaterial(new TerrainMaterial("heightmap2.png", "water.jpg", "diffuse1.jpg", "diffuse3.jpg", "diffuse2.jpg", "splatmap2.png"));
-	//terrain->setMaterial(new LitMaterial());
-
-	GameObject* light = new GameObject("light");
-	light->setBehaviour(new DirectionalLight(glm::vec3(1), glm::vec3(0.1f), glm::vec3(0)));
-	light->rotate(45, glm::vec3(1, 0, 0));
-
-	_world->addChild(terrain);
+	
+	TerrainMaterial* terMat = new TerrainMaterial("heightmap.png", "diffuse1.jpg", "water.jpg", "diffuse3.jpg", "diffuse4.jpg", "splatmap.png");
+	//TerrainMaterial* terMat = new TerrainMaterial("heightmap2.png", "diffuse1.jpg", "diffuse2.jpg", "diffuse3.jpg", "diffuse4.jpg", "splatmap2.png");
+	terMat->enableWater(true, 2);
+	terrain->setMaterial(terMat);
 
 	camera->setBehaviour(new OrbitBehaviour(terrain, 3));
+
+	///LIGHT
+	//GameObject* light = new GameObject("light");
+	//light->setBehaviour(new DirectionalLight(glm::vec3(1), glm::vec3(0.1f), glm::vec3(1)));
+	//light->rotate(glm::pi<float>() * 0.25f, glm::vec3(1, 0, 0));
+
+	_world->add(terrain);
+
+	GameObject* pLightRotor = new GameObject("pLightRotor");
+	pLightRotor->setBehaviour(new RotatingBehaviour(glm::vec3(1,0,0)));
+	_world->add(pLightRotor);
+
+	GameObject* pLight = new GameObject("pLight", glm::vec3(0,2,0));
+	pLight->setMesh(Mesh::load(config::MGE_MODEL_PATH + "sphere_flat.obj", 0.2f));
+	pLight->setMaterial(new ColorMaterial(glm::vec3(1)));
+	pLight->setBehaviour(new PointLight());
+	pLight->setParent(pLightRotor);
 }
 
 void TerrainScene::_render() {

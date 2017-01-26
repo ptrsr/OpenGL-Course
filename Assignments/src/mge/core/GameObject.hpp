@@ -6,6 +6,8 @@
 #include <iostream>
 #include <glm.hpp>
 
+#include "Message.hpp"
+
 class AbstractBehaviour;
 class AbstractMaterial;
 class World;
@@ -53,6 +55,7 @@ class GameObject
 		AbstractBehaviour* getBehaviour() const;
 
 		virtual void update(float pStep);
+		virtual void message(send::Message);
 
         //child management
 
@@ -79,8 +82,8 @@ class GameObject
 		AbstractMaterial* _material;
 
         //update children list administration
-        void _innerAdd (GameObject* pChild);
-		void _innerRemove (GameObject* pChild);
+        virtual void _innerAdd (GameObject* pChild);
+		virtual void _innerRemove (GameObject* pChild);
 
     private:
         GameObject(const GameObject&);

@@ -3,6 +3,7 @@
 
 #include "mge\behaviours\AbstractBehaviour.hpp"
 #include <glm.hpp>
+#include "mge/core/Message.hpp"
 
 class AbstractLight : public AbstractBehaviour
 {
@@ -17,6 +18,8 @@ public:
 
 	glm::vec3 getWorldPosition();
 	glm::vec3 getDirection();
+
+	void message(send::Message) override { std::cout << "this works tho!" << std::endl; };
 
 protected:
 	AbstractLight::~AbstractLight();

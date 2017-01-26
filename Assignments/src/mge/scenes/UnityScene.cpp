@@ -57,13 +57,13 @@ void UnityScene::_initializeScene()
 	_renderer->setClearColor(0, 0, 0);
 
 	Camera* camera = new Camera("camera", glm::vec3(0, 0, 0));
-	_world->addChild(camera);
+	_world->add(camera);
 	_world->setMainCamera(camera);
 
-	LuaParser* luaParser = new LuaParser("objects.lua");
+	LuaParser* luaParser = new LuaParser("main.lua");
 
 	GameObject* empty = new GameObject("Empty");
-	_world->addChild(empty);
+	_world->add(empty);
 	camera->setBehaviour(new OrbitBehaviour(empty, 400));
 }
 

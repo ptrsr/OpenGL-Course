@@ -7,6 +7,7 @@ uniform sampler2D tDifB;
 uniform sampler2D tDifA;
 
 uniform sampler2D tSplat;
+uniform int waterTexture;
 
 uniform mat4 modelMatrix;
 uniform vec3 modelColor;
@@ -66,6 +67,7 @@ vec3 CalcTexColor();
 vec3 CalcDirLight(DirLight, vec3, vec3, vec3);
 vec3 CalcPointLight(PointLight, vec3, vec3, vec3);
 vec3 CalcSpotLight(SpotLight, vec3, vec3, vec3);
+float Shininess();
 
 void main( void ) 
 {
@@ -107,7 +109,7 @@ vec3 CalcDirLight(DirLight light, vec3 normal, vec3 viewDir, vec3 texColor)
 	
 	vec3 ambient  = light.ambient * texColor;
 	vec3 diffuse  = light.diffuse * diff * texColor;
-	vec3 specular = light.specular * spec * texColor;
+	vec3 specular = light.specular * spec * Shininess();
 	
 	return (ambient + diffuse + specular);
 }
@@ -126,9 +128,9 @@ vec3 CalcPointLight(PointLight light, vec3 normal, vec3 viewDir, vec3 texColor)
     float attenuation = 1.0f / (light.constant + light.linear * distance + 
   			     light.quadratic * (distance * distance));
 				 
-    vec3 ambient  = light.ambient  * texColor * attenuation;
-    vec3 diffuse  = light.diffuse  * diff * texColor * attenuation;
-    vec3 specular = light.specular * spec * texColor * attenuation;
+    vec3 ambient  = light.ambient  * texColor;
+    vec3 diffuse  = light.diffuse  * diff * attenuation * texColor;
+    vec3 specular = light.specular * spec * texColor * attenuation * Shininess();
 
 	return (ambient + diffuse + specular);
 }
@@ -144,7 +146,7 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 viewDir, vec3 texColor)
     float attenuation = 1.0f / (light.constant + light.linear * distance + 
   			     light.quadratic * (distance * distance));
 	
-	vec3 ambient  = light.ambient  * texColor * attenuation;
+	vec3 ambient  = light.ambient  * texColor;
 	
 		if (angle < light.cutOff)
 			return ambient;
@@ -158,7 +160,24 @@ vec3 CalcSpotLight(SpotLight light, vec3 normal, vec3 viewDir, vec3 texColor)
     float spec = pow(max(dot(viewDir, ref), 0), shininess);
 				 
     vec3 diffuse  = light.diffuse  * diff * texColor * attenuation;
-    vec3 specular = light.specular * spec * texColor * attenuation;
+    vec3 specular = light.specular * spec * Shininess() * attenuation;
 	
 	return ambient + (diffuse + specular) * factor;
+}
+
+float Shininess()
+{
+	if (waterTexture == 0)
+		return 0;
+
+	vec4 splat = texture(tSplat, tCoord);
+
+	if (waterTexture == 1)
+		return splat.r;
+	else if (waterTexture == 2)
+		return splat.g;
+   	else if (waterTexture == 3)
+		return splat.b;
+	else
+		return splat.a;
 }

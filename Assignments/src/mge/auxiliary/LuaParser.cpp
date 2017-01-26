@@ -20,7 +20,15 @@ int createObject(lua_State * lua)
 	glm::vec3 color = hex::HexadecimalToRGB(hexColor) / 255.0f;
 
 	obj->setMaterial(new ColorMaterial(color));
-	World::addChild(obj);
+	World::add(obj);
+
+	return 0;
+}
+
+int getObject(lua_State* lua)
+{
+	std::string object = lua_tostring(lua, -1);
+	std::cout << object << std::endl;
 
 	return 0;
 }
@@ -33,7 +41,25 @@ LuaParser::LuaParser(std::string fileName)
 	lua_pushcfunction(lua, createObject);
 	lua_setglobal(lua, "createObject"); 
 
-	luaL_dofile(lua, (config::MGE_SCENE_PATH + fileName).c_str());
+	lua_pushcfunction(lua, getObject);
+	lua_setglobal(lua, "get");
+
+	int error = luaL_dofile(lua, (config::MGE_SCENE_PATH + fileName).c_str());
+	if (error) // if non-0, then an error
+	{
+		// the top of the stack should be the error string
+		if (!lua_isstring(lua, lua_gettop(lua)))
+			std::cout << "no error" << std::endl;
+
+		// get the top of the stack as the error and pop it off
+		std::cout << lua_tostring(lua, lua_gettop(lua)) << std::endl;
+		lua_pop(lua, 1);
+	}
+	else
+	{
+		// if not an error, then the top of the stack will be the function to call to run the file
+		lua_pcall(lua, 0, LUA_MULTRET, 0); // once again, returns non-0 on error, you should probably add a little check
+	}
 }
 
 void LuaParser::update(float pStep)

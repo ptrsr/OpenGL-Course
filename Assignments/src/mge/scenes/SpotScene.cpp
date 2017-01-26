@@ -55,7 +55,7 @@ void SpotScene::_initializeScene()
     _renderer->setClearColor(0,0,0);
 
     Camera* camera = new Camera ("camera", glm::vec3(0,0,0));
-    _world->addChild(camera);
+    _world->add(camera);
     _world->setMainCamera(camera);
 
     ///PLANE
@@ -69,7 +69,7 @@ void SpotScene::_initializeScene()
 
 	GameObject* spotRotor = new GameObject("rotor");
 	spotRotor->setBehaviour(new RotatingBehaviour(glm::normalize(glm::vec3(1,1,0))));
-	_world->addChild(spotRotor);
+	_world->add(spotRotor);
 
 	glm::vec3 spotColor = glm::vec3(1);
 

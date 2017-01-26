@@ -2,10 +2,9 @@
 #include "mge/core/World.hpp"
 
 
-AbstractLight::AbstractLight()
-{
+AbstractLight::AbstractLight() 
+{ 
 	World::get()->addLight(this);
-	std::cout << "light spawned" << std::endl;
 }
 
 AbstractLight::~AbstractLight()
@@ -22,3 +21,18 @@ glm::vec3 AbstractLight::getDirection()
 {
 	return glm::normalize(_owner->getWorldTransform()[2]);
 }
+
+//void AbstractLight::message(send::Message message)
+//{
+//	switch (message)
+//	{
+//	case send::addedToScene:
+//		World::get()->addLight(this);
+//		std::cout << "light added to scene!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
+//		break;
+//
+//	case send::removedFromScene:
+//		World::get()->removeLight(this);
+//		break;
+//	}
+//}

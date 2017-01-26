@@ -17,4 +17,3 @@ GameObject* AbstractBehaviour::getOwner()
 {
 	return _owner;
 }
-

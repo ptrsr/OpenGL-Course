@@ -6,7 +6,9 @@
 #include "mge/core/GameObject.hpp"
 #include "mge/config.hpp"
 
-
+GLint TerrainMaterial::_uClock = 0;
+GLint TerrainMaterial::_uWaterTexture = 0;
+GLint TerrainMaterial::_uWavePoint = 0;
 
 TerrainMaterial::TerrainMaterial(std::string pHeight, std::string pDifR, std::string pDifG, std::string pDifB, std::string pDifA, std::string pSplat) :
 	LitMaterial(Lit::splat)
@@ -20,7 +22,11 @@ TerrainMaterial::TerrainMaterial(std::string pHeight, std::string pDifR, std::st
 	_difB	   = Texture::load(path + pDifB);
 	_difA	   = Texture::load(path + pDifA);
 
-	_aUV = _shader->getAttribLocation("uv");
+	_aUV    = _shader->getAttribLocation("uv");
+	_uClock = _shader->getUniformLocation("clock");
+
+	_uWaterTexture = _shader->getUniformLocation("waterTexture");
+	_uWavePoint    = _shader->getUniformLocation("wavePoint");
 }
 
 TerrainMaterial::~TerrainMaterial() {}
@@ -34,6 +40,14 @@ void TerrainMaterial::render(Mesh* pMesh, const glm::mat4& pModelMatrix, const g
 	glm::mat4 mvpMatrix = pProjectionMatrix * pViewMatrix * pModelMatrix;
 	glUniformMatrix4fv(_uMVPMatrix, 1, GL_FALSE, glm::value_ptr(mvpMatrix));
 	glUniformMatrix4fv(_uModelMatrix, 1, GL_FALSE, glm::value_ptr(pModelMatrix));
+
+	if (_clock.getElapsedTime().asSeconds() != NULL)
+		glUniform1f(_uClock, _clock.getElapsedTime().asSeconds());
+	
+	if (_waterTexture != 0)
+		glUniform1i(_uWaterTexture, _waterTexture);
+
+	glUniform2fv(_uWavePoint, 1, glm::value_ptr(_wavePoint));
 
 	//fragment uniforms
 	glUniform3fv(_uCameraPos, 1, glm::value_ptr(((GameObject*)(World::get()->getMainCamera()))->getWorldPosition()));
@@ -70,4 +84,23 @@ void TerrainMaterial::render(Mesh* pMesh, const glm::mat4& pModelMatrix, const g
 	glUniform1i(_shader->getUniformLocation("tSplat"), 5);
 
 	pMesh->streamToOpenGL(_aVertex, _aNormal, _aUV);
+}
+
+void TerrainMaterial::enableWater(bool enabled, int waterTexture, glm::vec2 wavePoint, float shininess)
+{
+	/*if (enabled)
+	{
+		if (_clock == nullptr)
+			_clock = new sf::Clock();
+	} 
+	else 
+	{
+		if (_clock != nullptr)
+			delete _clock;
+	}*/
+
+
+	_waterTexture = waterTexture;
+	_wavePoint = glm::clamp(wavePoint, glm::vec2(0, 0), glm::vec2(1, 1));
+	_shininess = shininess;
 }
