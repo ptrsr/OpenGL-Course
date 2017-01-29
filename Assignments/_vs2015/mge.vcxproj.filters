@@ -26,9 +26,6 @@
     <Filter Include="MGE Source files\mge\auxiliary">
       <UniqueIdentifier>{43f710dd-1c7a-42d7-9f53-f4b018bdc5db}</UniqueIdentifier>
     </Filter>
-    <Filter Include="MGE Source files\mge\core\lua">
-      <UniqueIdentifier>{56a2edcf-8750-43d5-8673-cdaab6c2fb21}</UniqueIdentifier>
-    </Filter>
     <Filter Include="MGE Source files\scenes">
       <UniqueIdentifier>{b48956f6-d9de-4b73-aca1-9fb81bc04f6b}</UniqueIdentifier>
     </Filter>
@@ -37,6 +34,9 @@
     </Filter>
     <Filter Include="assets\shaders">
       <UniqueIdentifier>{af195ac6-8395-4446-98c0-d54117a3071b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="MGE Source files\mge\core\lua sourcefiles">
+      <UniqueIdentifier>{56a2edcf-8750-43d5-8673-cdaab6c2fb21}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -128,82 +128,82 @@
       <Filter>MGE Source files\mge\auxiliary</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\lapi.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\lauxlib.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\lcode.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\lctype.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\ldebug.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\ldo.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\lfunc.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\lgc.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\llex.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\llimits.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\lmem.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\lobject.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\lopcodes.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\lparser.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\lprefix.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\lstate.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\lstring.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\ltable.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\ltm.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\lua.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\lua.hpp">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\luaconf.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\lualib.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\lundump.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\lvm.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\core\lua\lzio.h">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClInclude>
     <ClInclude Include="..\src\mge\auxiliary\Hex.hpp">
       <Filter>MGE Source files\mge\auxiliary</Filter>
@@ -216,6 +216,9 @@
     </ClInclude>
     <ClInclude Include="..\src\mge\core\Message.hpp">
       <Filter>MGE Source files\mge\core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\mge\auxiliary\ObjectCache.hpp">
+      <Filter>MGE Source files\mge\auxiliary</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -304,103 +307,103 @@
       <Filter>MGE Source files\mge\auxiliary</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lapi.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lauxlib.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lbaselib.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lbitlib.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lcode.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lcorolib.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lctype.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\ldblib.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\ldebug.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\ldo.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\ldump.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lfunc.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lgc.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\linit.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\liolib.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\llex.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lmathlib.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lmem.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\loadlib.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lobject.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lopcodes.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\loslib.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lparser.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lstate.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lstring.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lstrlib.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\ltable.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\ltablib.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\ltm.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lundump.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lutf8lib.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lvm.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\core\lua\lzio.c">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </ClCompile>
     <ClCompile Include="..\src\mge\scenes\UnityScene.cpp">
       <Filter>MGE Source files\scenes</Filter>
@@ -408,10 +411,13 @@
     <ClCompile Include="..\src\mge\scenes\SpotScene.cpp">
       <Filter>MGE Source files\scenes</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\mge\auxiliary\ObjectCache.cpp">
+      <Filter>MGE Source files\mge\auxiliary</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\src\mge\core\lua\Makefile">
-      <Filter>MGE Source files\mge\core\lua</Filter>
+      <Filter>MGE Source files\mge\core\lua sourcefiles</Filter>
     </None>
     <None Include="..\assets\mge\shaders\color.fs">
       <Filter>assets\shaders</Filter>
