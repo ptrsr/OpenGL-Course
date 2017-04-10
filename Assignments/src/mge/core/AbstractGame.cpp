@@ -6,6 +6,8 @@ using namespace std;
 #include "mge/core/Renderer.hpp"
 #include "mge/core/World.hpp"
 
+#include "mge/auxiliary/InputHandler.h"
+
 AbstractGame::AbstractGame():_window(NULL),_renderer(NULL),_world(NULL), _fps(0)
 {
     //ctor
@@ -35,7 +37,8 @@ void AbstractGame::initialize() {
 void AbstractGame::_initializeWindow() {
 	cout << "Initializing window..." << endl;
 	_window = new sf::RenderWindow( sf::VideoMode(1280,720), "My Game!", sf::Style::Default, sf::ContextSettings(24,8,0,3,3));
-	//_window->setVerticalSyncEnabled(true);
+	_window->setVerticalSyncEnabled(true);
+	InputHandler::SetWindow(_window);
     cout << "Window initialized." << endl << endl;
 }
 
@@ -125,38 +128,7 @@ void AbstractGame::_render () {
 
 void AbstractGame::_processEvents()
 {
-	sf::Event event;
-	bool exit = false;
-
-	//we must empty the event queue
-	while( _window->pollEvent( event ) ) {
-        //give all system event listeners a chance to handle events
-        //optionally to be implemented by you...
-        //SystemEventDispatcher::dispatchEvent(event);
-
-        switch (event.type) {
-            case sf::Event::Closed:
-                exit = true;
-                break;
-            case sf::Event::KeyPressed:
-                if (event.key.code == sf::Keyboard::Escape) {
-                    exit = true;
-                }
-                break;
-            case sf::Event::Resized:
-                //would be better to move this to the renderer
-                //this version implements nonconstrained match viewport scaling
-                glViewport(0, 0, event.size.width, event.size.height);
-                break;
-
-            default:
-                break;
-        }
-	}
-
-	if (exit) {
-        _window->close();
-	}
+	InputHandler::Update();
 }
 
 

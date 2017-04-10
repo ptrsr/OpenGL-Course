@@ -22,17 +22,16 @@ glm::vec3 AbstractLight::getDirection()
 	return glm::normalize(_owner->getWorldTransform()[2]);
 }
 
-//void AbstractLight::message(send::Message message)
-//{
-//	switch (message)
-//	{
-//	case send::addedToScene:
-//		World::get()->addLight(this);
-//		std::cout << "light added to scene!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
-//		break;
-//
-//	case send::removedFromScene:
-//		World::get()->removeLight(this);
-//		break;
-//	}
-//}
+void AbstractLight::message(msg::Message message)
+{
+	switch (message)
+	{
+	case msg::addedToScene:
+		World::get()->addLight(this);
+		break;
+
+	case msg::removedFromScene:
+		World::get()->removeLight(this);
+		break;
+	}
+}

@@ -55,7 +55,7 @@ class GameObject
 		AbstractBehaviour* getBehaviour() const;
 
 		virtual void update(float pStep);
-		virtual void message(send::Message);
+		virtual void message(msg::Message);
 
         //child management
 
@@ -71,6 +71,8 @@ class GameObject
         GameObject* getChildAt (int pIndex);
 
 	protected:
+		bool _active = false;
+
 		std::string _name;
 		glm::mat4 _transform;
 

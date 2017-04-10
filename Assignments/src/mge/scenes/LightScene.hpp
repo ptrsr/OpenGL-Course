@@ -2,6 +2,7 @@
 #define LIGHTSCENE_H
 
 #include <mge/core/AbstractGame.hpp>
+#include "mge/core/GameObject.hpp"
 
 class DebugHud;
 
@@ -23,6 +24,9 @@ class LightScene: public AbstractGame
 
 	private:
 		DebugHud* _hud;                   //hud display
+
+		GameObject* rotor1;
+		GameObject* rotor2;
 
         void _updateHud();
 

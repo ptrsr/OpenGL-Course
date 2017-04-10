@@ -8,6 +8,7 @@ World* World::world;
 World::World():GameObject("root"), _mainCamera(0)
 {
 	_lights = new std::vector<AbstractLight*>();
+	_active = true;
 }
 
 World* World::get()
@@ -43,13 +44,13 @@ std::vector<AbstractLight*>* World::GetLights() {
 void World::_innerAdd(GameObject* pChild)
 {
 	GameObject::_innerAdd(pChild);
-	pChild->message(send::addedToScene);
+	pChild->message(msg::addedToScene);
 }
 
 void World::_innerRemove(GameObject* pChild)
 {
 	GameObject::_innerRemove(pChild);
-	pChild->message(send::removedFromScene);
+	pChild->message(msg::removedFromScene);
 }
 
 void World::add(GameObject* pChild)

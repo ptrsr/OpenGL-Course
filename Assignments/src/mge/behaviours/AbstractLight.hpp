@@ -19,7 +19,7 @@ public:
 	glm::vec3 getWorldPosition();
 	glm::vec3 getDirection();
 
-	void message(send::Message) override { std::cout << "this works tho!" << std::endl; };
+	void message(msg::Message) override;
 
 protected:
 	AbstractLight::~AbstractLight();

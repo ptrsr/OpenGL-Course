@@ -81,6 +81,9 @@ void GameObject::setBehaviour(AbstractBehaviour* pBehaviour)
 {
 	_behaviour = pBehaviour;
 	_behaviour->setOwner(this);
+	
+	if (_active)
+		_behaviour->message(msg::addedToScene);
 }
 
 AbstractBehaviour * GameObject::getBehaviour() const
@@ -111,13 +114,23 @@ void GameObject::_innerAdd(GameObject* pChild)
     //set new parent
     pChild->_parent = this;
 	_children.push_back(pChild);
+	
+	if (_active)
+		pChild->message(msg::addedToScene);
 }
 
 void GameObject::_innerRemove (GameObject* pChild) {
-    for (auto i = _children.begin(); i != _children.end(); ++i) {
-        if (*i == pChild) {
-            (*i)->_parent = NULL;
-            _children.erase(i);
+    for (auto i = _children.begin(); i != _children.end(); ++i) 
+	{
+		GameObject* child = *i;
+        if (child == pChild)
+		{
+			child->_parent = NULL;
+			_children.erase(i);
+
+			if (_active)
+				child->message(msg::removedFromScene);
+
             return;
         }
     }
@@ -181,13 +194,25 @@ GameObject* GameObject::getChildAt(int pIndex) {
     return _children[pIndex];
 }
 
-void GameObject::message(send::Message message) 
+void GameObject::message(msg::Message message) 
 {
-	if (_behaviour)
+	switch (message)
 	{
-		_behaviour->message(message);
-		std::cout << "MESSAGE SEND!!!!" << std::endl;
+		case msg::addedToScene:
+			if (_active) return;
+			_active = true;
+			break;
+
+		case msg::removedFromScene:
+			if (!_active) return;
+			_active = false;
+			break;
 	}
+
+	std::cout << _name << " got message: " << message << std::endl;
+
+	if (_behaviour)
+		_behaviour->message(message);
 
 	for each (GameObject* child in _children)
 		child->message(message);

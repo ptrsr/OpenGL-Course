@@ -29,7 +29,7 @@ class AbstractBehaviour
         //behaviour should be able to update itself every step and MUST be implemented
 		virtual void update(float pStep) = 0;
 
-		virtual void message(send::Message) = 0;
+		virtual void message(msg::Message) { };
 
     protected:
 
